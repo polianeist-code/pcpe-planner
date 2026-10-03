@@ -10,3 +10,27 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
 @media(max-width:1100px){.stats-grid{grid-template-columns:repeat(2,1fr)}.weekly-template{grid-template-columns:repeat(3,1fr)}.template-day.weekend{grid-column:auto}.source-grid{grid-template-columns:1fr 1fr}.question-controls{grid-template-columns:1fr 1fr}.question-controls .primary-btn{grid-column:span 2}.today-plan{grid-template-columns:1fr 1fr}}
 @media(max-width:840px){.mobile-only{display:block}.sidebar{transform:translateX(-100%);transition:.22s}.sidebar.open{transform:translateX(0)}.workspace{margin-left:0}.topbar{padding:0 18px}.content{padding:20px 16px 40px}.hero-grid,.dashboard-grid,.settings-grid{grid-template-columns:1fr}.span-2{grid-column:auto}.hero-card{min-height:160px}.hero-card h2{font-size:38px}.radial{width:94px;height:94px}.radial:before{width:68px;height:68px}.week-body{grid-template-columns:1fr}.weekly-template{grid-template-columns:1fr 1fr}.intro-card{align-items:flex-start;flex-direction:column}.legend{justify-content:flex-start}.topbar-title .eyebrow{display:none}.cargo-switch span{display:none}}
 @media(max-width:560px){.topbar{height:72px}.topbar-title h1{font-size:17px}.cargo-switch{padding:4px}.cargo-switch select{padding:7px 25px 7px 8px;font-size:11px}.timer-pill{padding:9px 10px}.stats-grid{grid-template-columns:1fr 1fr}.stat-card{padding:15px}.stat-card strong{font-size:22px}.today-plan,.weekly-template,.two-cols,.source-grid,.question-controls{grid-template-columns:1fr}.question-controls .primary-btn{grid-column:auto}.progress-row{grid-template-columns:120px 1fr 42px}.week-card summary{grid-template-columns:64px 1fr 20px;padding:14px}.week-no{padding:8px}.filter-row{flex-direction:column}.hero-grid{grid-template-columns:1fr}.hero-card{padding:22px}.alert-card{padding:19px}.timer-display{font-size:44px}.modal{padding:22px}.stats-grid.compact{grid-template-columns:1fr 1fr}.week-toolbar{align-items:flex-start;gap:10px;flex-direction:column}.segmented{width:100%;overflow:auto}.segmented button{flex:1}.source-grid{grid-template-columns:1fr}.daily-plan-hint{display:none}}
+
+/* Edital & progresso — disciplinas clicáveis */
+.static-syllabus{display:grid;gap:14px}
+.static-subject-card{background:#fff;border:1px solid #e3e8f2;border-radius:18px;overflow:hidden;box-shadow:0 6px 24px rgba(15,23,42,.035)}
+.static-subject-card[hidden]{display:none!important}
+.static-subject-card>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 22px;transition:.18s ease}
+.static-subject-card>summary::-webkit-details-marker{display:none}
+.static-subject-card>summary:hover{background:#f8faff}
+.static-subject-card[open]>summary{background:#f7f9ff;border-bottom:1px solid #e7ebf4}
+.static-subject-main{display:flex;align-items:center;gap:14px;min-width:0}
+.static-subject-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#edf3ff;color:#315bea;font-size:18px;flex:0 0 auto}
+.static-subject-main h3{margin:0 0 4px;font-size:17px;color:#121a2b}
+.static-subject-main p{margin:0;color:#72809a;font-size:13px}
+.static-subject-side{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+.static-progress{font-size:12px;font-weight:800;color:#53637d;background:#f2f5fa;padding:6px 9px;border-radius:999px}
+.static-chevron{font-size:20px;color:#7c89a0;transition:.2s transform}
+.static-subject-card[open] .static-chevron{transform:rotate(180deg)}
+.static-topic-list{padding:10px 18px 18px;display:grid;gap:8px}
+.static-topic-row{display:flex;align-items:flex-start;gap:12px;padding:12px 10px;border-radius:12px;cursor:pointer;border:1px solid transparent}
+.static-topic-row:hover{background:#f8faff;border-color:#edf0f6}
+.static-topic-check{margin-top:2px;width:18px;height:18px;accent-color:#4169e1;flex:0 0 auto}
+.static-topic-text{line-height:1.42;color:#33415c;font-size:14px}
+.static-topic-check:checked+.static-topic-text{text-decoration:line-through;color:#8a95a8}
+@media(max-width:760px){.static-subject-card>summary{align-items:flex-start;flex-direction:column}.static-subject-side{justify-content:flex-start}}
