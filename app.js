@@ -229,6 +229,7 @@
 
   // Syllabus
   function renderSyllabus(){
+    if($('#syllabusList')?.classList.contains('static-syllabus')) return;
     const q=$('#topicSearch').value.trim().toLowerCase(), filter=$('#subjectFilter').value;
     const html=visibleSubjects().filter(s=>filter==='all'||s.id===filter).map(s=>{
       const rows=s.topics.map((topic,i)=>({topic,i})).filter(x=>!q||x.topic.toLowerCase().includes(q)||s.name.toLowerCase().includes(q));
