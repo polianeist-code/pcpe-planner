@@ -1303,7 +1303,12 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
       <div class="timer-controls"><button class="primary-btn" id="timerStart">Iniciar</button><button class="secondary-btn" id="timerPause">Pausar</button><button class="ghost-btn" id="timerReset">Zerar</button></div>
       <div class="timer-form">
         <label class="field"><span>Matéria</span><select id="timerSubject"></select></label>
-        <label class="field"><span>Assunto</span><select id="timerTopic"><option value="">Selecione primeiro a matéria</option></select></label>
+        <label class="field"><span>Assunto</span><select id="timerTopic"><option value="">Selecione primeiro a matéria</option></select></label><label class="field"><span>Tipo de estudo</span><select id="timerStudyType">
+  <option value="PDF">PDF</option>
+  <option value="Vídeo aula">Vídeo aula</option>
+  <option value="Questões">Questões</option>
+  <option value="Revisão">Revisão</option>
+</select></label>
         <div class="two-cols"><label class="field"><span>Páginas lidas</span><input id="timerPages" type="number" min="0" value="0" /></label><label class="field"><span>Questões feitas</span><input id="timerQ" type="number" min="0" value="0" /></label></div>
         <div class="two-cols"><label class="field"><span>Acertos</span><input id="timerCorrect" type="number" min="0" value="0" /></label><label class="field"><span>Erros</span><input id="timerWrong" type="number" min="0" value="0" /></label></div>
         <button class="primary-btn full" id="timerFinish">Finalizar e salvar sessão</button>
@@ -1339,7 +1344,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
 
   <div id="toast" class="toast" role="status"></div>
 
-  <script src="data.js?v=20261003-2"></script>
+  <script src="data.js?v=20261003-14"></script>
 <!-- SCHEDULE_BOOTSTRAP_START -->
   <script>
   (function(){
@@ -1441,7 +1446,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
   })();
   </script>
 <!-- SCHEDULE_BOOTSTRAP_END -->
-  <script src="app.js?v=20261003-13"></script>
+  <script src="app.js?v=20261003-14"></script>
 
 
 
@@ -1597,5 +1602,81 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
 })();
 </script>
 <!-- CACHE_CLEANUP_END -->
+<!-- FORCE_CYCLE_RENDER_V14_START -->
+<script>
+(function(){
+  function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+  function parseIso(iso){const a=iso.split('-').map(Number);return new Date(a[0],a[1]-1,a[2]);}
+  function add(iso,n){const d=parseIso(iso);d.setDate(d.getDate()+n);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');}
+  function dm(iso){const a=iso.split('-');return a[2]+'/'+a[1];}
+  function cargo(){return document.getElementById('cargoSelect')?.value||'agente';}
+  function visible(w,c){return (w.items||[]).filter(t=>!t.startsWith('Agente:')&&!t.startsWith('Escrivão:')||(c==='agente'&&t.startsWith('Agente:'))||(c==='escrivao'&&t.startsWith('Escrivão:'))).map(t=>t.replace(/^Agente:\s*/,'').replace(/^Escrivão:\s*/,''));}
+  function clean(t){const i=t.indexOf(':');return i>0&&i<55?t.slice(i+1).trim():t;}
+  function pick(items,res,fallback){const f=items.filter(x=>res.some(rx=>rx.test(x))).map(clean);return f.length?f.join(' + '):fallback;}
+  function week(D){
+    const now=new Date(), iso=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
+    return D.weeks.find(w=>iso>=w.start&&iso<=w.end)||(iso<D.meta.startDate?D.weeks[0]:D.weeks[D.weeks.length-1]);
+  }
+  function render(){
+    const D=window.PCPE_DATA,box=document.getElementById('weeklyTemplate'); if(!D||!box)return;
+    const c=cargo(),w=week(D),items=visible(w,c);
+    const legal=pick(items,[/^Constitucional:/,/^Administrativo:/,/^Legislação Estadual:/,/^Constitucional\/Administrativo\/Estadual:/,/^Revisão dirigida de Constitucional/],'Revisão dirigida de Constitucional, Administrativo e Legislação Estadual');
+    const penal=pick(items,[/^Penal:/,/^Leis penais especiais/],'Revisão e questões de Direito Penal');
+    const proc=pick(items,[/^Processual Penal:/,/^Inquérito e provas/],'Revisão e questões de Processo Penal');
+    const port=pick(items,[/^Português:/],'Revisão e questões de Português');
+    const info=pick(items,[/^Informática:/],'Revisão e questões de Informática');
+    const rlm=pick(items,[/^RLM:/],'Revisão e questões de RLM');
+    const estat=pick(items,[/^Estatística:/],'Revisão e questões de Estatística');
+    const esp=pick(items,[/^Contabilidade/,/^Arquivologia/,/^Matéria específica do cargo:/],c==='agente'?'Contabilidade — revisão e questões':'Arquivologia — revisão e questões');
+    const leg=pick(items,[/^Legislação Estadual:/,/^Constitucional\/Administrativo\/Estadual:/,/^Revisão dirigida de Constitucional/],penal);
+    const rows=[
+      ['Segunda','09:00','Constitucional / Administrativo / Estadual',legal,'PDF / Vídeo aula'],
+      ['Segunda','10:20','Língua Portuguesa',port,'PDF / Vídeo aula'],
+      ['Segunda','11:10','Revisão','D+7 + caderno de erros','Revisão'],
+      ['Terça','09:00','Direito Penal',penal,'PDF / Vídeo aula'],
+      ['Terça','10:20','Informática',info,'PDF / Vídeo aula'],
+      ['Terça','11:10','Questões','Conteúdo estudado no dia + correção','Questões'],
+      ['Quarta','09:00','Direito Processual Penal',proc,'PDF / Vídeo aula'],
+      ['Quarta','10:20','Raciocínio Lógico',rlm,'PDF / Vídeo aula'],
+      ['Quarta','11:10','Revisão','D+30 / flashcards','Revisão'],
+      ['Quinta','09:00','Penal / Legislação Estadual',leg,'PDF / Vídeo aula'],
+      ['Quinta','10:20',c==='agente'?'Contabilidade Geral':'Noções de Arquivologia',esp,'PDF / Vídeo aula'],
+      ['Quinta','11:10','Questões','Questões dos conteúdos da quinta + registro de erros','Questões'],
+      ['Sexta','09:00','Estatística',estat,'PDF / Vídeo aula'],
+      ['Sexta','10:20','Português — treino',port,'Questões'],
+      ['Sexta','11:10','Revisão semanal','Pendências e caderno de erros','Revisão'],
+      ['Sábado','09:00','Específicos prioritários','Informática: '+info+'; RLM: '+rlm+'; Estatística: '+estat,'PDF / Questões'],
+      ['Sábado','10:45','Noções de Direito','Constitucional/Administrativo: '+legal+'; Penal: '+penal+'; Processo Penal: '+proc,'Revisão / Questões'],
+      ['Sábado','14:00',c==='agente'?'Contabilidade Geral':'Noções de Arquivologia',esp,'PDF / Questões'],
+      ['Sábado','15:45','Questões mistas','Bateria mista dos assuntos da semana + D+7/D+30','Questões / Revisão'],
+      ['Domingo','09:00','Simulado',w.mock,'Questões'],
+      ['Domingo','14:00','Correção detalhada','Caderno de erros e análise dos pontos fracos','Revisão'],
+      ['Domingo','15:45','Discursiva',w.essay,'Questões / Produção'],
+      ['Domingo','17:00','Planejamento','D+7/D+30 e planejamento da próxima semana','Revisão']
+    ];
+    const days=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],di={Segunda:0,Terça:1,Quarta:2,Quinta:3,Sexta:4,Sábado:5,Domingo:6};
+    box.classList.add('dynamic-cycle');
+    box.innerHTML=days.map(day=>{
+      const rs=rows.filter(r=>r[0]===day),date=add(w.start,di[day]),weekend=day==='Sábado'||day==='Domingo';
+      return '<div class="template-day '+(weekend?'weekend':'')+'"><div class="template-day-head"><h4>'+esc(day)+' · '+dm(date)+'</h4><small>Semana '+String(w.number).padStart(2,'0')+' · '+dm(w.start)+'–'+dm(w.end)+'</small></div>'+
+      rs.map(r=>'<button type="button" class="cycle-slot"><span class="cycle-slot-main"><span class="cycle-slot-time">'+esc(r[1])+'</span><span class="cycle-slot-subject">'+esc(r[2])+'</span><span class="cycle-slot-chevron">⌄</span></span><span class="cycle-slot-detail"><strong>Tópico:</strong> '+esc(r[3])+'<br><strong>Tipo:</strong> '+esc(r[4])+'</span></button>').join('')+'</div>';
+    }).join('');
+    box.querySelectorAll('.cycle-slot').forEach(b=>b.onclick=()=>b.classList.toggle('open'));
+    const panel=box.closest('.panel'),title=panel?.querySelector('.panel-head h3');
+    if(title){
+      let l=panel.querySelector('.cycle-week-label');if(!l){l=document.createElement('div');l.className='cycle-week-label';title.insertAdjacentElement('afterend',l);}
+      l.textContent='Semana '+String(w.number).padStart(2,'0')+' · '+dm(w.start)+' a '+dm(w.end);
+      let i=panel.querySelector('.cycle-week-hint');if(!i){i=document.createElement('div');i.className='cycle-week-hint';l.insertAdjacentElement('afterend',i);}
+      i.textContent='Clique em cada bloco para ver o tópico e o tipo de estudo.';
+    }
+  }
+  function run(){setTimeout(render,50);setTimeout(render,500);}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+  document.getElementById('cargoSelect')?.addEventListener('change',run);
+  document.querySelector('[data-page="cronograma"]')?.addEventListener('click',run);
+  window.addEventListener('pageshow',run);
+})();
+</script>
+<!-- FORCE_CYCLE_RENDER_V14_END -->
 </body>
 </html>
