@@ -127,13 +127,645 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
         <section class="page" id="page-edital">
           <div class="intro-card">
             <div><span class="eyebrow">CHECKLIST DO EDITAL</span><h2>Marque o que concluiu. O sistema agenda D+7 e D+30.</h2><p>O progresso é salvo neste navegador. Use exportação periódica em Configurações para manter um backup.</p></div>
-            <a class="primary-btn" href="assets/edital-pcpe-2026.pdf" target="_blank" rel="noopener">Abrir edital PDF</a>
+            <a class="primary-btn" href="https://www.cebraspe.org.br/concursos/pc_pe_26" target="_blank" rel="noopener">Abrir página oficial do concurso</a>
           </div>
           <div class="filter-row">
             <input id="topicSearch" class="search-input" type="search" placeholder="Buscar assunto do edital…" />
-            <select id="subjectFilter"><option value="all">Todas as matérias</option></select>
+            <select id="subjectFilter"><option value="all">Todas as matérias</option><option value="leg_est">Legislação Estadual</option><option value="const">Noções de Direito Constitucional</option><option value="adm">Noções de Direito Administrativo</option><option value="penal">Noções de Direito Penal</option><option value="proc_penal">Noções de Direito Processual Penal</option><option value="port">Língua Portuguesa</option><option value="info">Informática</option><option value="rlm">Raciocínio Lógico</option><option value="estat">Estatística</option><option value="contab">Contabilidade Geral</option><option value="arq">Noções de Arquivologia</option></select>
           </div>
-          <div id="syllabusList" class="syllabus-list"></div>
+          <div id="syllabusList" class="syllabus-list static-syllabus"><details class="static-subject-card" data-subject-id="leg_est" data-subject-name="legislação estadual" data-cargo="common">
+      <summary>
+        <div class="static-subject-main">
+          <span class="static-subject-icon">▦</span>
+          <div><h3>Legislação Estadual</h3><p>Noções de Direito · 5 assuntos</p></div>
+        </div>
+        <div class="static-subject-side">
+          <span class="weight-chip">peso média</span>
+          <span class="static-progress" data-progress-for="leg_est">0/5</span>
+          <span class="static-chevron">⌄</span>
+        </div>
+      </summary>
+      <div class="static-topic-list"><label class="static-topic-row" data-topic="constituição do estado de pernambuco — arts. 101 a 105-b">
+          <input type="checkbox" class="static-topic-check" data-key="leg_est::0">
+          <span class="static-topic-text">Constituição do Estado de Pernambuco — arts. 101 a 105-B</span>
+        </label><label class="static-topic-row" data-topic="lei nº 6.425/1972 — estatuto do policial civil">
+          <input type="checkbox" class="static-topic-check" data-key="leg_est::1">
+          <span class="static-topic-text">Lei nº 6.425/1972 — Estatuto do Policial Civil</span>
+        </label><label class="static-topic-row" data-topic="lei nº 6.123/1968 — estatuto do servidor do estado de pernambuco">
+          <input type="checkbox" class="static-topic-check" data-key="leg_est::2">
+          <span class="static-topic-text">Lei nº 6.123/1968 — Estatuto do Servidor do Estado de Pernambuco</span>
+        </label><label class="static-topic-row" data-topic="lei complementar nº 137/2008">
+          <input type="checkbox" class="static-topic-check" data-key="leg_est::3">
+          <span class="static-topic-text">Lei Complementar nº 137/2008</span>
+        </label><label class="static-topic-row" data-topic="lei complementar nº 317/2015">
+          <input type="checkbox" class="static-topic-check" data-key="leg_est::4">
+          <span class="static-topic-text">Lei Complementar nº 317/2015</span>
+        </label></div>
+    </details><details class="static-subject-card" data-subject-id="const" data-subject-name="noções de direito constitucional" data-cargo="common">
+      <summary>
+        <div class="static-subject-main">
+          <span class="static-subject-icon">▦</span>
+          <div><h3>Noções de Direito Constitucional</h3><p>Noções de Direito · 13 assuntos</p></div>
+        </div>
+        <div class="static-subject-side">
+          <span class="weight-chip">peso alta</span>
+          <span class="static-progress" data-progress-for="const">0/13</span>
+          <span class="static-chevron">⌄</span>
+        </div>
+      </summary>
+      <div class="static-topic-list"><label class="static-topic-row" data-topic="princípios fundamentais">
+          <input type="checkbox" class="static-topic-check" data-key="const::0">
+          <span class="static-topic-text">Princípios fundamentais</span>
+        </label><label class="static-topic-row" data-topic="poder constituinte originário, derivado e decorrente">
+          <input type="checkbox" class="static-topic-check" data-key="const::1">
+          <span class="static-topic-text">Poder constituinte originário, derivado e decorrente</span>
+        </label><label class="static-topic-row" data-topic="aplicabilidade das normas constitucionais">
+          <input type="checkbox" class="static-topic-check" data-key="const::2">
+          <span class="static-topic-text">Aplicabilidade das normas constitucionais</span>
+        </label><label class="static-topic-row" data-topic="direitos e garantias fundamentais">
+          <input type="checkbox" class="static-topic-check" data-key="const::3">
+          <span class="static-topic-text">Direitos e garantias fundamentais</span>
+        </label><label class="static-topic-row" data-topic="organização político-administrativa do estado">
+          <input type="checkbox" class="static-topic-check" data-key="const::4">
+          <span class="static-topic-text">Organização político-administrativa do Estado</span>
+        </label><label class="static-topic-row" data-topic="estado federal, união, estados, df, municípios e territórios">
+          <input type="checkbox" class="static-topic-check" data-key="const::5">
+          <span class="static-topic-text">Estado federal, União, estados, DF, municípios e territórios</span>
+        </label><label class="static-topic-row" data-topic="administração pública e servidores públicos">
+          <input type="checkbox" class="static-topic-check" data-key="const::6">
+          <span class="static-topic-text">Administração pública e servidores públicos</span>
+        </label><label class="static-topic-row" data-topic="poder executivo">
+          <input type="checkbox" class="static-topic-check" data-key="const::7">
+          <span class="static-topic-text">Poder Executivo</span>
+        </label><label class="static-topic-row" data-topic="poder legislativo">
+          <input type="checkbox" class="static-topic-check" data-key="const::8">
+          <span class="static-topic-text">Poder Legislativo</span>
+        </label><label class="static-topic-row" data-topic="poder judiciário">
+          <input type="checkbox" class="static-topic-check" data-key="const::9">
+          <span class="static-topic-text">Poder Judiciário</span>
+        </label><label class="static-topic-row" data-topic="funções essenciais à justiça — mp, advocacia pública e defensoria pública">
+          <input type="checkbox" class="static-topic-check" data-key="const::10">
+          <span class="static-topic-text">Funções essenciais à justiça — MP, Advocacia Pública e Defensoria Pública</span>
+        </label><label class="static-topic-row" data-topic="defesa do estado e das instituições democráticas">
+          <input type="checkbox" class="static-topic-check" data-key="const::11">
+          <span class="static-topic-text">Defesa do Estado e das instituições democráticas</span>
+        </label><label class="static-topic-row" data-topic="segurança pública na constituição do estado de pernambuco">
+          <input type="checkbox" class="static-topic-check" data-key="const::12">
+          <span class="static-topic-text">Segurança pública na Constituição do Estado de Pernambuco</span>
+        </label></div>
+    </details><details class="static-subject-card" data-subject-id="adm" data-subject-name="noções de direito administrativo" data-cargo="common">
+      <summary>
+        <div class="static-subject-main">
+          <span class="static-subject-icon">▦</span>
+          <div><h3>Noções de Direito Administrativo</h3><p>Noções de Direito · 16 assuntos</p></div>
+        </div>
+        <div class="static-subject-side">
+          <span class="weight-chip">peso alta</span>
+          <span class="static-progress" data-progress-for="adm">0/16</span>
+          <span class="static-chevron">⌄</span>
+        </div>
+      </summary>
+      <div class="static-topic-list"><label class="static-topic-row" data-topic="estado, governo e administração pública">
+          <input type="checkbox" class="static-topic-check" data-key="adm::0">
+          <span class="static-topic-text">Estado, governo e administração pública</span>
+        </label><label class="static-topic-row" data-topic="direito administrativo">
+          <input type="checkbox" class="static-topic-check" data-key="adm::1">
+          <span class="static-topic-text">Direito administrativo</span>
+        </label><label class="static-topic-row" data-topic="ato administrativo">
+          <input type="checkbox" class="static-topic-check" data-key="adm::2">
+          <span class="static-topic-text">Ato administrativo</span>
+        </label><label class="static-topic-row" data-topic="poderes administrativo: hierárquico, disciplinar, regulamentar e de polícia">
+          <input type="checkbox" class="static-topic-check" data-key="adm::3">
+          <span class="static-topic-text">Poderes administrativo: hierárquico, disciplinar, regulamentar e de polícia</span>
+        </label><label class="static-topic-row" data-topic="uso e abuso do poder">
+          <input type="checkbox" class="static-topic-check" data-key="adm::4">
+          <span class="static-topic-text">Uso e abuso do poder</span>
+        </label><label class="static-topic-row" data-topic="regime jurídico-administrativo e princípios">
+          <input type="checkbox" class="static-topic-check" data-key="adm::5">
+          <span class="static-topic-text">Regime jurídico-administrativo e princípios</span>
+        </label><label class="static-topic-row" data-topic="responsabilidade civil do estado">
+          <input type="checkbox" class="static-topic-check" data-key="adm::6">
+          <span class="static-topic-text">Responsabilidade civil do Estado</span>
+        </label><label class="static-topic-row" data-topic="serviços públicos">
+          <input type="checkbox" class="static-topic-check" data-key="adm::7">
+          <span class="static-topic-text">Serviços públicos</span>
+        </label><label class="static-topic-row" data-topic="organização administrativa — centralização, descentralização, concentração e desconcentração">
+          <input type="checkbox" class="static-topic-check" data-key="adm::8">
+          <span class="static-topic-text">Organização administrativa — centralização, descentralização, concentração e desconcentração</span>
+        </label><label class="static-topic-row" data-topic="administração direta e indireta">
+          <input type="checkbox" class="static-topic-check" data-key="adm::9">
+          <span class="static-topic-text">Administração direta e indireta</span>
+        </label><label class="static-topic-row" data-topic="controle da administração — administrativo, judicial e legislativo">
+          <input type="checkbox" class="static-topic-check" data-key="adm::10">
+          <span class="static-topic-text">Controle da administração — administrativo, judicial e legislativo</span>
+        </label><label class="static-topic-row" data-topic="improbidade administrativa">
+          <input type="checkbox" class="static-topic-check" data-key="adm::11">
+          <span class="static-topic-text">Improbidade administrativa</span>
+        </label><label class="static-topic-row" data-topic="processo administrativo">
+          <input type="checkbox" class="static-topic-check" data-key="adm::12">
+          <span class="static-topic-text">Processo administrativo</span>
+        </label><label class="static-topic-row" data-topic="licitações e contratos administrativos">
+          <input type="checkbox" class="static-topic-check" data-key="adm::13">
+          <span class="static-topic-text">Licitações e contratos administrativos</span>
+        </label><label class="static-topic-row" data-topic="agentes públicos">
+          <input type="checkbox" class="static-topic-check" data-key="adm::14">
+          <span class="static-topic-text">Agentes públicos</span>
+        </label><label class="static-topic-row" data-topic="cargo, emprego e função pública">
+          <input type="checkbox" class="static-topic-check" data-key="adm::15">
+          <span class="static-topic-text">Cargo, emprego e função pública</span>
+        </label></div>
+    </details><details class="static-subject-card" data-subject-id="penal" data-subject-name="noções de direito penal" data-cargo="common">
+      <summary>
+        <div class="static-subject-main">
+          <span class="static-subject-icon">▦</span>
+          <div><h3>Noções de Direito Penal</h3><p>Noções de Direito · 21 assuntos</p></div>
+        </div>
+        <div class="static-subject-side">
+          <span class="weight-chip">peso muito alta</span>
+          <span class="static-progress" data-progress-for="penal">0/21</span>
+          <span class="static-chevron">⌄</span>
+        </div>
+      </summary>
+      <div class="static-topic-list"><label class="static-topic-row" data-topic="princípios básicos; crime e contravenção">
+          <input type="checkbox" class="static-topic-check" data-key="penal::0">
+          <span class="static-topic-text">Princípios básicos; crime e contravenção</span>
+        </label><label class="static-topic-row" data-topic="aplicação da lei penal no tempo e no espaço">
+          <input type="checkbox" class="static-topic-check" data-key="penal::1">
+          <span class="static-topic-text">Aplicação da lei penal no tempo e no espaço</span>
+        </label><label class="static-topic-row" data-topic="tempo e lugar do crime; lei excepcional, especial e temporária">
+          <input type="checkbox" class="static-topic-check" data-key="penal::2">
+          <span class="static-topic-text">Tempo e lugar do crime; lei excepcional, especial e temporária</span>
+        </label><label class="static-topic-row" data-topic="territorialidade, extraterritorialidade, contagem de prazo e irretroatividade">
+          <input type="checkbox" class="static-topic-check" data-key="penal::3">
+          <span class="static-topic-text">Territorialidade, extraterritorialidade, contagem de prazo e irretroatividade</span>
+        </label><label class="static-topic-row" data-topic="crimes contra a pessoa">
+          <input type="checkbox" class="static-topic-check" data-key="penal::4">
+          <span class="static-topic-text">Crimes contra a pessoa</span>
+        </label><label class="static-topic-row" data-topic="crimes contra o patrimônio">
+          <input type="checkbox" class="static-topic-check" data-key="penal::5">
+          <span class="static-topic-text">Crimes contra o patrimônio</span>
+        </label><label class="static-topic-row" data-topic="crimes contra a dignidade sexual">
+          <input type="checkbox" class="static-topic-check" data-key="penal::6">
+          <span class="static-topic-text">Crimes contra a dignidade sexual</span>
+        </label><label class="static-topic-row" data-topic="crimes contra a administração pública">
+          <input type="checkbox" class="static-topic-check" data-key="penal::7">
+          <span class="static-topic-text">Crimes contra a administração pública</span>
+        </label><label class="static-topic-row" data-topic="crimes hediondos — lei nº 8.072/1990">
+          <input type="checkbox" class="static-topic-check" data-key="penal::8">
+          <span class="static-topic-text">Crimes hediondos — Lei nº 8.072/1990</span>
+        </label><label class="static-topic-row" data-topic="crimes resultantes de preconceito de raça ou cor — lei nº 7.716/1989">
+          <input type="checkbox" class="static-topic-check" data-key="penal::9">
+          <span class="static-topic-text">Crimes resultantes de preconceito de raça ou cor — Lei nº 7.716/1989</span>
+        </label><label class="static-topic-row" data-topic="abuso de autoridade — lei nº 13.869/2019">
+          <input type="checkbox" class="static-topic-check" data-key="penal::10">
+          <span class="static-topic-text">Abuso de autoridade — Lei nº 13.869/2019</span>
+        </label><label class="static-topic-row" data-topic="tortura — lei nº 9.455/1997">
+          <input type="checkbox" class="static-topic-check" data-key="penal::11">
+          <span class="static-topic-text">Tortura — Lei nº 9.455/1997</span>
+        </label><label class="static-topic-row" data-topic="eca — lei nº 8.069/1990">
+          <input type="checkbox" class="static-topic-check" data-key="penal::12">
+          <span class="static-topic-text">ECA — Lei nº 8.069/1990</span>
+        </label><label class="static-topic-row" data-topic="organizações criminosas — lei nº 12.850/2013">
+          <input type="checkbox" class="static-topic-check" data-key="penal::13">
+          <span class="static-topic-text">Organizações criminosas — Lei nº 12.850/2013</span>
+        </label><label class="static-topic-row" data-topic="crimes de trânsito — lei nº 9.503/1997">
+          <input type="checkbox" class="static-topic-check" data-key="penal::14">
+          <span class="static-topic-text">Crimes de trânsito — Lei nº 9.503/1997</span>
+        </label><label class="static-topic-row" data-topic="violência doméstica contra a mulher — lei nº 11.340/2006">
+          <input type="checkbox" class="static-topic-check" data-key="penal::15">
+          <span class="static-topic-text">Violência doméstica contra a mulher — Lei nº 11.340/2006</span>
+        </label><label class="static-topic-row" data-topic="lei de drogas — lei nº 11.343/2006">
+          <input type="checkbox" class="static-topic-check" data-key="penal::16">
+          <span class="static-topic-text">Lei de Drogas — Lei nº 11.343/2006</span>
+        </label><label class="static-topic-row" data-topic="violência doméstica contra criança e adolescente — lei nº 14.344/2022">
+          <input type="checkbox" class="static-topic-check" data-key="penal::17">
+          <span class="static-topic-text">Violência doméstica contra criança e adolescente — Lei nº 14.344/2022</span>
+        </label><label class="static-topic-row" data-topic="crimes ambientais — lei nº 9.605/1998">
+          <input type="checkbox" class="static-topic-check" data-key="penal::18">
+          <span class="static-topic-text">Crimes ambientais — Lei nº 9.605/1998</span>
+        </label><label class="static-topic-row" data-topic="estatuto do desarmamento — lei nº 10.826/2003">
+          <input type="checkbox" class="static-topic-check" data-key="penal::19">
+          <span class="static-topic-text">Estatuto do Desarmamento — Lei nº 10.826/2003</span>
+        </label><label class="static-topic-row" data-topic="disposições constitucionais aplicáveis ao direito penal">
+          <input type="checkbox" class="static-topic-check" data-key="penal::20">
+          <span class="static-topic-text">Disposições constitucionais aplicáveis ao direito penal</span>
+        </label></div>
+    </details><details class="static-subject-card" data-subject-id="proc_penal" data-subject-name="noções de direito processual penal" data-cargo="common">
+      <summary>
+        <div class="static-subject-main">
+          <span class="static-subject-icon">▦</span>
+          <div><h3>Noções de Direito Processual Penal</h3><p>Noções de Direito · 12 assuntos</p></div>
+        </div>
+        <div class="static-subject-side">
+          <span class="weight-chip">peso muito alta</span>
+          <span class="static-progress" data-progress-for="proc_penal">0/12</span>
+          <span class="static-chevron">⌄</span>
+        </div>
+      </summary>
+      <div class="static-topic-list"><label class="static-topic-row" data-topic="aplicação da lei processual penal no tempo, espaço e em relação às pessoas">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::0">
+          <span class="static-topic-text">Aplicação da lei processual penal no tempo, espaço e em relação às pessoas</span>
+        </label><label class="static-topic-row" data-topic="inquérito policial">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::1">
+          <span class="static-topic-text">Inquérito policial</span>
+        </label><label class="static-topic-row" data-topic="prova: exame de corpo de delito e perícias">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::2">
+          <span class="static-topic-text">Prova: exame de corpo de delito e perícias</span>
+        </label><label class="static-topic-row" data-topic="interrogatório; confissão; ofendido e testemunhas">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::3">
+          <span class="static-topic-text">Interrogatório; confissão; ofendido e testemunhas</span>
+        </label><label class="static-topic-row" data-topic="reconhecimento de pessoas e coisas; acareação; documentos; indícios">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::4">
+          <span class="static-topic-text">Reconhecimento de pessoas e coisas; acareação; documentos; indícios</span>
+        </label><label class="static-topic-row" data-topic="busca e apreensão">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::5">
+          <span class="static-topic-text">Busca e apreensão</span>
+        </label><label class="static-topic-row" data-topic="prisão e liberdade provisória">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::6">
+          <span class="static-topic-text">Prisão e liberdade provisória</span>
+        </label><label class="static-topic-row" data-topic="medidas cautelares diversas da prisão">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::7">
+          <span class="static-topic-text">Medidas cautelares diversas da prisão</span>
+        </label><label class="static-topic-row" data-topic="prisão temporária — lei nº 7.960/1989">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::8">
+          <span class="static-topic-text">Prisão temporária — Lei nº 7.960/1989</span>
+        </label><label class="static-topic-row" data-topic="juizados especiais criminais — lei nº 9.099/1995">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::9">
+          <span class="static-topic-text">Juizados Especiais Criminais — Lei nº 9.099/1995</span>
+        </label><label class="static-topic-row" data-topic="investigação criminal — lei nº 12.830/2013">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::10">
+          <span class="static-topic-text">Investigação criminal — Lei nº 12.830/2013</span>
+        </label><label class="static-topic-row" data-topic="disposições constitucionais aplicáveis ao processo penal">
+          <input type="checkbox" class="static-topic-check" data-key="proc_penal::11">
+          <span class="static-topic-text">Disposições constitucionais aplicáveis ao processo penal</span>
+        </label></div>
+    </details><details class="static-subject-card" data-subject-id="port" data-subject-name="língua portuguesa" data-cargo="common">
+      <summary>
+        <div class="static-subject-main">
+          <span class="static-subject-icon">▦</span>
+          <div><h3>Língua Portuguesa</h3><p>Conhecimentos Específicos · 18 assuntos</p></div>
+        </div>
+        <div class="static-subject-side">
+          <span class="weight-chip">peso muito alta</span>
+          <span class="static-progress" data-progress-for="port">0/18</span>
+          <span class="static-chevron">⌄</span>
+        </div>
+      </summary>
+      <div class="static-topic-list"><label class="static-topic-row" data-topic="compreensão e interpretação de textos">
+          <input type="checkbox" class="static-topic-check" data-key="port::0">
+          <span class="static-topic-text">Compreensão e interpretação de textos</span>
+        </label><label class="static-topic-row" data-topic="tipos e gêneros textuais">
+          <input type="checkbox" class="static-topic-check" data-key="port::1">
+          <span class="static-topic-text">Tipos e gêneros textuais</span>
+        </label><label class="static-topic-row" data-topic="ortografia oficial">
+          <input type="checkbox" class="static-topic-check" data-key="port::2">
+          <span class="static-topic-text">Ortografia oficial</span>
+        </label><label class="static-topic-row" data-topic="coesão textual: referenciação, substituição, repetição e conectores">
+          <input type="checkbox" class="static-topic-check" data-key="port::3">
+          <span class="static-topic-text">Coesão textual: referenciação, substituição, repetição e conectores</span>
+        </label><label class="static-topic-row" data-topic="tempos e modos verbais">
+          <input type="checkbox" class="static-topic-check" data-key="port::4">
+          <span class="static-topic-text">Tempos e modos verbais</span>
+        </label><label class="static-topic-row" data-topic="classes de palavras">
+          <input type="checkbox" class="static-topic-check" data-key="port::5">
+          <span class="static-topic-text">Classes de palavras</span>
+        </label><label class="static-topic-row" data-topic="coordenação entre orações e termos">
+          <input type="checkbox" class="static-topic-check" data-key="port::6">
+          <span class="static-topic-text">Coordenação entre orações e termos</span>
+        </label><label class="static-topic-row" data-topic="subordinação entre orações e termos">
+          <input type="checkbox" class="static-topic-check" data-key="port::7">
+          <span class="static-topic-text">Subordinação entre orações e termos</span>
+        </label><label class="static-topic-row" data-topic="pontuação">
+          <input type="checkbox" class="static-topic-check" data-key="port::8">
+          <span class="static-topic-text">Pontuação</span>
+        </label><label class="static-topic-row" data-topic="concordância verbal e nominal">
+          <input type="checkbox" class="static-topic-check" data-key="port::9">
+          <span class="static-topic-text">Concordância verbal e nominal</span>
+        </label><label class="static-topic-row" data-topic="regência verbal e nominal">
+          <input type="checkbox" class="static-topic-check" data-key="port::10">
+          <span class="static-topic-text">Regência verbal e nominal</span>
+        </label><label class="static-topic-row" data-topic="crase">
+          <input type="checkbox" class="static-topic-check" data-key="port::11">
+          <span class="static-topic-text">Crase</span>
+        </label><label class="static-topic-row" data-topic="colocação pronominal">
+          <input type="checkbox" class="static-topic-check" data-key="port::12">
+          <span class="static-topic-text">Colocação pronominal</span>
+        </label><label class="static-topic-row" data-topic="reescrita de frases e parágrafos">
+          <input type="checkbox" class="static-topic-check" data-key="port::13">
+          <span class="static-topic-text">Reescrita de frases e parágrafos</span>
+        </label><label class="static-topic-row" data-topic="significação das palavras">
+          <input type="checkbox" class="static-topic-check" data-key="port::14">
+          <span class="static-topic-text">Significação das palavras</span>
+        </label><label class="static-topic-row" data-topic="substituição e reorganização de estruturas">
+          <input type="checkbox" class="static-topic-check" data-key="port::15">
+          <span class="static-topic-text">Substituição e reorganização de estruturas</span>
+        </label><label class="static-topic-row" data-topic="reescrita conforme gênero e nível de formalidade">
+          <input type="checkbox" class="static-topic-check" data-key="port::16">
+          <span class="static-topic-text">Reescrita conforme gênero e nível de formalidade</span>
+        </label><label class="static-topic-row" data-topic="correspondência oficial — manual de redação da presidência da república">
+          <input type="checkbox" class="static-topic-check" data-key="port::17">
+          <span class="static-topic-text">Correspondência oficial — Manual de Redação da Presidência da República</span>
+        </label></div>
+    </details><details class="static-subject-card" data-subject-id="info" data-subject-name="informática" data-cargo="common">
+      <summary>
+        <div class="static-subject-main">
+          <span class="static-subject-icon">▦</span>
+          <div><h3>Informática</h3><p>Conhecimentos Específicos · 16 assuntos</p></div>
+        </div>
+        <div class="static-subject-side">
+          <span class="weight-chip">peso alta</span>
+          <span class="static-progress" data-progress-for="info">0/16</span>
+          <span class="static-chevron">⌄</span>
+        </div>
+      </summary>
+      <div class="static-topic-list"><label class="static-topic-row" data-topic="windows: janelas, menus, barra de tarefas e área de trabalho">
+          <input type="checkbox" class="static-topic-check" data-key="info::0">
+          <span class="static-topic-text">Windows: janelas, menus, barra de tarefas e área de trabalho</span>
+        </label><label class="static-topic-row" data-topic="pastas e arquivos; localização, cópia, movimentação, criação e exclusão">
+          <input type="checkbox" class="static-topic-check" data-key="info::1">
+          <span class="static-topic-text">Pastas e arquivos; localização, cópia, movimentação, criação e exclusão</span>
+        </label><label class="static-topic-row" data-topic="configurações do windows e windows explorer">
+          <input type="checkbox" class="static-topic-check" data-key="info::2">
+          <span class="static-topic-text">Configurações do Windows e Windows Explorer</span>
+        </label><label class="static-topic-row" data-topic="microsoft word — interface e formatação">
+          <input type="checkbox" class="static-topic-check" data-key="info::3">
+          <span class="static-topic-text">Microsoft Word — interface e formatação</span>
+        </label><label class="static-topic-row" data-topic="word — listas, tabelas, estilos, cabeçalho/rodapé e configuração de página">
+          <input type="checkbox" class="static-topic-check" data-key="info::4">
+          <span class="static-topic-text">Word — listas, tabelas, estilos, cabeçalho/rodapé e configuração de página</span>
+        </label><label class="static-topic-row" data-topic="microsoft excel — interface, seleção e entrada de dados">
+          <input type="checkbox" class="static-topic-check" data-key="info::5">
+          <span class="static-topic-text">Microsoft Excel — interface, seleção e entrada de dados</span>
+        </label><label class="static-topic-row" data-topic="excel — referências absoluta e relativa">
+          <input type="checkbox" class="static-topic-check" data-key="info::6">
+          <span class="static-topic-text">Excel — referências absoluta e relativa</span>
+        </label><label class="static-topic-row" data-topic="excel — funções matemáticas, estatísticas, data-hora, financeiras e texto">
+          <input type="checkbox" class="static-topic-check" data-key="info::7">
+          <span class="static-topic-text">Excel — funções matemáticas, estatísticas, data-hora, financeiras e texto</span>
+        </label><label class="static-topic-row" data-topic="excel — formatação, edição, classificação e gráficos">
+          <input type="checkbox" class="static-topic-check" data-key="info::8">
+          <span class="static-topic-text">Excel — formatação, edição, classificação e gráficos</span>
+        </label><label class="static-topic-row" data-topic="powerpoint — criação, objetos e modos de visualização">
+          <input type="checkbox" class="static-topic-check" data-key="info::9">
+          <span class="static-topic-text">PowerPoint — criação, objetos e modos de visualização</span>
+        </label><label class="static-topic-row" data-topic="powerpoint — tabelas, gráficos, leiaute, slide mestre, animações e integração">
+          <input type="checkbox" class="static-topic-check" data-key="info::10">
+          <span class="static-topic-text">PowerPoint — tabelas, gráficos, leiaute, slide mestre, animações e integração</span>
+        </label><label class="static-topic-row" data-topic="redes: internet, intranet, redes sociais, nuvem, deep web e dark web">
+          <input type="checkbox" class="static-topic-check" data-key="info::11">
+          <span class="static-topic-text">Redes: Internet, intranet, redes sociais, nuvem, deep web e dark web</span>
+        </label><label class="static-topic-row" data-topic="correio eletrônico">
+          <input type="checkbox" class="static-topic-check" data-key="info::12">
+          <span class="static-topic-text">Correio eletrônico</span>
+        </label><label class="static-topic-row" data-topic="navegadores, sítios de busca e pesquisa">
+          <input type="checkbox" class="static-topic-check" data-key="info::13">
+          <span class="static-topic-text">Navegadores, sítios de busca e pesquisa</span>
+        </label><label class="static-topic-row" data-topic="segurança: acessos, malware, antivírus e criptografia">
+          <input type="checkbox" class="static-topic-check" data-key="info::14">
+          <span class="static-topic-text">Segurança: acessos, malware, antivírus e criptografia</span>
+        </label><label class="static-topic-row" data-topic="backup e armazenamento em nuvem">
+          <input type="checkbox" class="static-topic-check" data-key="info::15">
+          <span class="static-topic-text">Backup e armazenamento em nuvem</span>
+        </label></div>
+    </details><details class="static-subject-card" data-subject-id="rlm" data-subject-name="raciocínio lógico" data-cargo="common">
+      <summary>
+        <div class="static-subject-main">
+          <span class="static-subject-icon">▦</span>
+          <div><h3>Raciocínio Lógico</h3><p>Conhecimentos Específicos · 19 assuntos</p></div>
+        </div>
+        <div class="static-subject-side">
+          <span class="weight-chip">peso alta</span>
+          <span class="static-progress" data-progress-for="rlm">0/19</span>
+          <span class="static-chevron">⌄</span>
+        </div>
+      </summary>
+      <div class="static-topic-list"><label class="static-topic-row" data-topic="conjuntos numéricos">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::0">
+          <span class="static-topic-text">Conjuntos numéricos</span>
+        </label><label class="static-topic-row" data-topic="sistema legal de medidas">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::1">
+          <span class="static-topic-text">Sistema legal de medidas</span>
+        </label><label class="static-topic-row" data-topic="razões e proporções; divisão proporcional">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::2">
+          <span class="static-topic-text">Razões e proporções; divisão proporcional</span>
+        </label><label class="static-topic-row" data-topic="regra de três simples e composta; porcentagens">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::3">
+          <span class="static-topic-text">Regra de três simples e composta; porcentagens</span>
+        </label><label class="static-topic-row" data-topic="equações e inequações de 1º e 2º graus">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::4">
+          <span class="static-topic-text">Equações e inequações de 1º e 2º graus</span>
+        </label><label class="static-topic-row" data-topic="sistemas lineares">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::5">
+          <span class="static-topic-text">Sistemas lineares</span>
+        </label><label class="static-topic-row" data-topic="funções e gráficos">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::6">
+          <span class="static-topic-text">Funções e gráficos</span>
+        </label><label class="static-topic-row" data-topic="princípios de contagem">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::7">
+          <span class="static-topic-text">Princípios de contagem</span>
+        </label><label class="static-topic-row" data-topic="progressões aritméticas e geométricas">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::8">
+          <span class="static-topic-text">Progressões aritméticas e geométricas</span>
+        </label><label class="static-topic-row" data-topic="estruturas lógicas">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::9">
+          <span class="static-topic-text">Estruturas lógicas</span>
+        </label><label class="static-topic-row" data-topic="lógica de argumentação">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::10">
+          <span class="static-topic-text">Lógica de argumentação</span>
+        </label><label class="static-topic-row" data-topic="lógica proposicional: proposições simples e compostas">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::11">
+          <span class="static-topic-text">Lógica proposicional: proposições simples e compostas</span>
+        </label><label class="static-topic-row" data-topic="tabelas-verdade">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::12">
+          <span class="static-topic-text">Tabelas-verdade</span>
+        </label><label class="static-topic-row" data-topic="equivalências e leis de de morgan">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::13">
+          <span class="static-topic-text">Equivalências e Leis de De Morgan</span>
+        </label><label class="static-topic-row" data-topic="diagramas lógicos">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::14">
+          <span class="static-topic-text">Diagramas lógicos</span>
+        </label><label class="static-topic-row" data-topic="lógica de primeira ordem">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::15">
+          <span class="static-topic-text">Lógica de primeira ordem</span>
+        </label><label class="static-topic-row" data-topic="probabilidade">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::16">
+          <span class="static-topic-text">Probabilidade</span>
+        </label><label class="static-topic-row" data-topic="operações com conjuntos">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::17">
+          <span class="static-topic-text">Operações com conjuntos</span>
+        </label><label class="static-topic-row" data-topic="problemas aritméticos, geométricos e matriciais">
+          <input type="checkbox" class="static-topic-check" data-key="rlm::18">
+          <span class="static-topic-text">Problemas aritméticos, geométricos e matriciais</span>
+        </label></div>
+    </details><details class="static-subject-card" data-subject-id="estat" data-subject-name="estatística" data-cargo="common">
+      <summary>
+        <div class="static-subject-main">
+          <span class="static-subject-icon">▦</span>
+          <div><h3>Estatística</h3><p>Conhecimentos Específicos · 12 assuntos</p></div>
+        </div>
+        <div class="static-subject-side">
+          <span class="weight-chip">peso média-alta</span>
+          <span class="static-progress" data-progress-for="estat">0/12</span>
+          <span class="static-chevron">⌄</span>
+        </div>
+      </summary>
+      <div class="static-topic-list"><label class="static-topic-row" data-topic="estatística descritiva e análise exploratória">
+          <input type="checkbox" class="static-topic-check" data-key="estat::0">
+          <span class="static-topic-text">Estatística descritiva e análise exploratória</span>
+        </label><label class="static-topic-row" data-topic="gráficos, diagramas e tabelas">
+          <input type="checkbox" class="static-topic-check" data-key="estat::1">
+          <span class="static-topic-text">Gráficos, diagramas e tabelas</span>
+        </label><label class="static-topic-row" data-topic="medidas de posição">
+          <input type="checkbox" class="static-topic-check" data-key="estat::2">
+          <span class="static-topic-text">Medidas de posição</span>
+        </label><label class="static-topic-row" data-topic="medidas de dispersão">
+          <input type="checkbox" class="static-topic-check" data-key="estat::3">
+          <span class="static-topic-text">Medidas de dispersão</span>
+        </label><label class="static-topic-row" data-topic="assimetria e curtose">
+          <input type="checkbox" class="static-topic-check" data-key="estat::4">
+          <span class="static-topic-text">Assimetria e curtose</span>
+        </label><label class="static-topic-row" data-topic="probabilidade: definições e axiomas">
+          <input type="checkbox" class="static-topic-check" data-key="estat::5">
+          <span class="static-topic-text">Probabilidade: definições e axiomas</span>
+        </label><label class="static-topic-row" data-topic="probabilidade condicional e independência">
+          <input type="checkbox" class="static-topic-check" data-key="estat::6">
+          <span class="static-topic-text">Probabilidade condicional e independência</span>
+        </label><label class="static-topic-row" data-topic="amostragem aleatória simples">
+          <input type="checkbox" class="static-topic-check" data-key="estat::7">
+          <span class="static-topic-text">Amostragem aleatória simples</span>
+        </label><label class="static-topic-row" data-topic="amostragem estratificada">
+          <input type="checkbox" class="static-topic-check" data-key="estat::8">
+          <span class="static-topic-text">Amostragem estratificada</span>
+        </label><label class="static-topic-row" data-topic="amostragem sistemática">
+          <input type="checkbox" class="static-topic-check" data-key="estat::9">
+          <span class="static-topic-text">Amostragem sistemática</span>
+        </label><label class="static-topic-row" data-topic="amostragem por conglomerados">
+          <input type="checkbox" class="static-topic-check" data-key="estat::10">
+          <span class="static-topic-text">Amostragem por conglomerados</span>
+        </label><label class="static-topic-row" data-topic="tamanho amostral">
+          <input type="checkbox" class="static-topic-check" data-key="estat::11">
+          <span class="static-topic-text">Tamanho amostral</span>
+        </label></div>
+    </details><details class="static-subject-card" data-subject-id="contab" data-subject-name="contabilidade geral" data-cargo="agente">
+      <summary>
+        <div class="static-subject-main">
+          <span class="static-subject-icon">▦</span>
+          <div><h3>Contabilidade Geral</h3><p>Conhecimentos Específicos · 15 assuntos</p></div>
+        </div>
+        <div class="static-subject-side">
+          <span class="weight-chip">peso alta</span><span class="cargo-chip">Agente</span>
+          <span class="static-progress" data-progress-for="contab">0/15</span>
+          <span class="static-chevron">⌄</span>
+        </div>
+      </summary>
+      <div class="static-topic-list"><label class="static-topic-row" data-topic="conceitos, objetivos e finalidade da contabilidade">
+          <input type="checkbox" class="static-topic-check" data-key="contab::0">
+          <span class="static-topic-text">Conceitos, objetivos e finalidade da contabilidade</span>
+        </label><label class="static-topic-row" data-topic="patrimônio e equação patrimonial; situações líquidas">
+          <input type="checkbox" class="static-topic-check" data-key="contab::1">
+          <span class="static-topic-text">Patrimônio e equação patrimonial; situações líquidas</span>
+        </label><label class="static-topic-row" data-topic="atos e fatos administrativos: permutativos, modificativos e mistos">
+          <input type="checkbox" class="static-topic-check" data-key="contab::2">
+          <span class="static-topic-text">Atos e fatos administrativos: permutativos, modificativos e mistos</span>
+        </label><label class="static-topic-row" data-topic="contas: débito, crédito e saldos">
+          <input type="checkbox" class="static-topic-check" data-key="contab::3">
+          <span class="static-topic-text">Contas: débito, crédito e saldos</span>
+        </label><label class="static-topic-row" data-topic="plano de contas">
+          <input type="checkbox" class="static-topic-check" data-key="contab::4">
+          <span class="static-topic-text">Plano de contas</span>
+        </label><label class="static-topic-row" data-topic="escrituração: método das partidas dobradas e lançamentos">
+          <input type="checkbox" class="static-topic-check" data-key="contab::5">
+          <span class="static-topic-text">Escrituração: método das partidas dobradas e lançamentos</span>
+        </label><label class="static-topic-row" data-topic="livros contábeis e elementos do lançamento">
+          <input type="checkbox" class="static-topic-check" data-key="contab::6">
+          <span class="static-topic-text">Livros contábeis e elementos do lançamento</span>
+        </label><label class="static-topic-row" data-topic="regimes de competência e de caixa">
+          <input type="checkbox" class="static-topic-check" data-key="contab::7">
+          <span class="static-topic-text">Regimes de competência e de caixa</span>
+        </label><label class="static-topic-row" data-topic="operações com juros, descontos, tributos, aluguéis e folha">
+          <input type="checkbox" class="static-topic-check" data-key="contab::8">
+          <span class="static-topic-text">Operações com juros, descontos, tributos, aluguéis e folha</span>
+        </label><label class="static-topic-row" data-topic="compras e vendas; provisões">
+          <input type="checkbox" class="static-topic-check" data-key="contab::9">
+          <span class="static-topic-text">Compras e vendas; provisões</span>
+        </label><label class="static-topic-row" data-topic="depreciação e baixas/alienações">
+          <input type="checkbox" class="static-topic-check" data-key="contab::10">
+          <span class="static-topic-text">Depreciação e baixas/alienações</span>
+        </label><label class="static-topic-row" data-topic="balancete de verificação">
+          <input type="checkbox" class="static-topic-check" data-key="contab::11">
+          <span class="static-topic-text">Balancete de verificação</span>
+        </label><label class="static-topic-row" data-topic="balanço patrimonial">
+          <input type="checkbox" class="static-topic-check" data-key="contab::12">
+          <span class="static-topic-text">Balanço patrimonial</span>
+        </label><label class="static-topic-row" data-topic="demonstração do resultado do exercício">
+          <input type="checkbox" class="static-topic-check" data-key="contab::13">
+          <span class="static-topic-text">Demonstração do Resultado do Exercício</span>
+        </label><label class="static-topic-row" data-topic="normas brasileiras de contabilidade aplicáveis ao conteúdo">
+          <input type="checkbox" class="static-topic-check" data-key="contab::14">
+          <span class="static-topic-text">Normas brasileiras de contabilidade aplicáveis ao conteúdo</span>
+        </label></div>
+    </details><details class="static-subject-card" data-subject-id="arq" data-subject-name="noções de arquivologia" data-cargo="escrivao">
+      <summary>
+        <div class="static-subject-main">
+          <span class="static-subject-icon">▦</span>
+          <div><h3>Noções de Arquivologia</h3><p>Conhecimentos Específicos · 16 assuntos</p></div>
+        </div>
+        <div class="static-subject-side">
+          <span class="weight-chip">peso alta</span><span class="cargo-chip">Escrivão</span>
+          <span class="static-progress" data-progress-for="arq">0/16</span>
+          <span class="static-chevron">⌄</span>
+        </div>
+      </summary>
+      <div class="static-topic-list"><label class="static-topic-row" data-topic="arquivística: princípios e conceitos">
+          <input type="checkbox" class="static-topic-check" data-key="arq::0">
+          <span class="static-topic-text">Arquivística: princípios e conceitos</span>
+        </label><label class="static-topic-row" data-topic="funções arquivísticas">
+          <input type="checkbox" class="static-topic-check" data-key="arq::1">
+          <span class="static-topic-text">Funções arquivísticas</span>
+        </label><label class="static-topic-row" data-topic="legislação arquivística">
+          <input type="checkbox" class="static-topic-check" data-key="arq::2">
+          <span class="static-topic-text">Legislação arquivística</span>
+        </label><label class="static-topic-row" data-topic="sistemas e redes de arquivo">
+          <input type="checkbox" class="static-topic-check" data-key="arq::3">
+          <span class="static-topic-text">Sistemas e redes de arquivo</span>
+        </label><label class="static-topic-row" data-topic="gestão da informação e de documentos">
+          <input type="checkbox" class="static-topic-check" data-key="arq::4">
+          <span class="static-topic-text">Gestão da informação e de documentos</span>
+        </label><label class="static-topic-row" data-topic="programas de gestão de documentos">
+          <input type="checkbox" class="static-topic-check" data-key="arq::5">
+          <span class="static-topic-text">Programas de gestão de documentos</span>
+        </label><label class="static-topic-row" data-topic="protocolo: recebimento, registro, distribuição, tramitação e expedição">
+          <input type="checkbox" class="static-topic-check" data-key="arq::6">
+          <span class="static-topic-text">Protocolo: recebimento, registro, distribuição, tramitação e expedição</span>
+        </label><label class="static-topic-row" data-topic="avaliação e classificação de documentos">
+          <input type="checkbox" class="static-topic-check" data-key="arq::7">
+          <span class="static-topic-text">Avaliação e classificação de documentos</span>
+        </label><label class="static-topic-row" data-topic="arquivamento, descrição e ordenação">
+          <input type="checkbox" class="static-topic-check" data-key="arq::8">
+          <span class="static-topic-text">Arquivamento, descrição e ordenação</span>
+        </label><label class="static-topic-row" data-topic="acondicionamento e armazenamento">
+          <input type="checkbox" class="static-topic-check" data-key="arq::9">
+          <span class="static-topic-text">Acondicionamento e armazenamento</span>
+        </label><label class="static-topic-row" data-topic="preservação e conservação">
+          <input type="checkbox" class="static-topic-check" data-key="arq::10">
+          <span class="static-topic-text">Preservação e conservação</span>
+        </label><label class="static-topic-row" data-topic="análise tipológica de documentos">
+          <input type="checkbox" class="static-topic-check" data-key="arq::11">
+          <span class="static-topic-text">Análise tipológica de documentos</span>
+        </label><label class="static-topic-row" data-topic="políticas de acesso aos documentos">
+          <input type="checkbox" class="static-topic-check" data-key="arq::12">
+          <span class="static-topic-text">Políticas de acesso aos documentos</span>
+        </label><label class="static-topic-row" data-topic="sistemas informatizados de gestão arquivística">
+          <input type="checkbox" class="static-topic-check" data-key="arq::13">
+          <span class="static-topic-text">Sistemas informatizados de gestão arquivística</span>
+        </label><label class="static-topic-row" data-topic="documentos digitais: requisitos e metadados">
+          <input type="checkbox" class="static-topic-check" data-key="arq::14">
+          <span class="static-topic-text">Documentos digitais: requisitos e metadados</span>
+        </label><label class="static-topic-row" data-topic="microfilmagem de documentos">
+          <input type="checkbox" class="static-topic-check" data-key="arq::15">
+          <span class="static-topic-text">Microfilmagem de documentos</span>
+        </label></div>
+    </details></div>
         </section>
 
         <section class="page" id="page-questoes">
@@ -357,5 +989,12 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
   </script>
 <!-- SCHEDULE_BOOTSTRAP_END -->
   <script src="app.js?v=20261003-2"></script>
-</body>
-</html>
+
+<script>
+(function(){
+  const KEY='pcpePlannerStateV1';
+  const list=document.getElementById('syllabusList');
+  if(!list) return;
+  const cargoSelect=document.getElementById('cargoSelect');
+  const search=document.getElementById('topicSearch');
+  const filter=document.getElementById('subjectFilter');
