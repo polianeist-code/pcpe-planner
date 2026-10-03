@@ -386,6 +386,6 @@
     safeRender('timer',updateTimerUI);
   }
 
-  if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});
+  if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js?v=20261003-3').catch(()=>{});
   startTimerTick(); renderAll();
 })();
