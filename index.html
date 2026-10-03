@@ -128,6 +128,23 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
 @media(max-width:840px){.weekly-template.dynamic-cycle{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.weekly-template.dynamic-cycle{grid-template-columns:1fr}.dynamic-cycle .template-day.weekend{grid-column:auto}}
 
+
+/* Cronômetro — matérias e assuntos em listas suspensas */
+#timerSubject,#timerTopic{
+  width:100%;
+  border:1px solid var(--line-2);
+  border-radius:10px;
+  padding:11px 38px 11px 11px;
+  background:#fff;
+  color:#1f2937;
+  outline:none;
+}
+#timerSubject:focus,#timerTopic:focus{
+  border-color:#8da0ff;
+  box-shadow:0 0 0 3px rgba(51,92,255,.08);
+}
+#timerTopic:disabled{background:#f5f7fa;color:#98a2b3;cursor:not-allowed}
+
 </style>
 </head>
 <body>
@@ -1286,7 +1303,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
       <div class="timer-controls"><button class="primary-btn" id="timerStart">Iniciar</button><button class="secondary-btn" id="timerPause">Pausar</button><button class="ghost-btn" id="timerReset">Zerar</button></div>
       <div class="timer-form">
         <label class="field"><span>Matéria</span><select id="timerSubject"></select></label>
-        <label class="field"><span>Assunto (opcional)</span><input id="timerTopic" placeholder="Ex.: Inquérito policial" /></label>
+        <label class="field"><span>Assunto</span><select id="timerTopic"><option value="">Selecione primeiro a matéria</option></select></label>
         <div class="two-cols"><label class="field"><span>Páginas lidas</span><input id="timerPages" type="number" min="0" value="0" /></label><label class="field"><span>Questões feitas</span><input id="timerQ" type="number" min="0" value="0" /></label></div>
         <div class="two-cols"><label class="field"><span>Acertos</span><input id="timerCorrect" type="number" min="0" value="0" /></label><label class="field"><span>Erros</span><input id="timerWrong" type="number" min="0" value="0" /></label></div>
         <button class="primary-btn full" id="timerFinish">Finalizar e salvar sessão</button>
@@ -1602,6 +1619,73 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
 })();
 </script>
 <!-- DYNAMIC_CYCLE_END -->
+
+
+<!-- TIMER_DROPDOWNS_START -->
+<script>
+(function(){
+  const subjectSelect=document.getElementById('timerSubject');
+  const topicSelect=document.getElementById('timerTopic');
+  const cargoSelect=document.getElementById('cargoSelect');
+  const syllabus=document.getElementById('syllabusList');
+  if(!subjectSelect||!topicSelect||!syllabus)return;
+
+  function cardsForCargo(){
+    const cargo=cargoSelect?.value||'agente';
+    return [...syllabus.querySelectorAll('.static-subject-card')].filter(card=>
+      card.dataset.cargo==='common'||card.dataset.cargo===cargo
+    );
+  }
+
+  function populateSubjects(preserve=true){
+    const previous=preserve?subjectSelect.value:'';
+    const cards=cardsForCargo();
+    subjectSelect.innerHTML='<option value="">Selecione a matéria</option>'+
+      cards.map(card=>{
+        const id=card.dataset.subjectId;
+        const name=card.querySelector('.static-subject-main h3')?.textContent.trim()||id;
+        return '<option value="'+id.replace(/"/g,'&quot;')+'">'+name+'</option>';
+      }).join('');
+    if(previous&&[...subjectSelect.options].some(o=>o.value===previous))subjectSelect.value=previous;
+    else subjectSelect.value='';
+    populateTopics(false);
+  }
+
+  function populateTopics(preserve=true){
+    const previous=preserve?topicSelect.value:'';
+    const sid=subjectSelect.value;
+    if(!sid){
+      topicSelect.innerHTML='<option value="">Selecione primeiro a matéria</option>';
+      topicSelect.disabled=true;
+      return;
+    }
+    const card=syllabus.querySelector('.static-subject-card[data-subject-id="'+CSS.escape(sid)+'"]');
+    const topics=card?[...card.querySelectorAll('.static-topic-text')].map(el=>el.textContent.trim()).filter(Boolean):[];
+    topicSelect.disabled=false;
+    topicSelect.innerHTML='<option value="">Selecione o assunto</option>'+
+      topics.map(t=>'<option value="'+t.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'">'+t+'</option>').join('');
+    if(previous&&topics.includes(previous))topicSelect.value=previous;
+    else topicSelect.value='';
+  }
+
+  subjectSelect.addEventListener('change',()=>populateTopics(false));
+  cargoSelect?.addEventListener('change',()=>setTimeout(()=>populateSubjects(false),0));
+
+  const timerOpen=document.getElementById('timerOpen');
+  timerOpen?.addEventListener('click',()=>setTimeout(()=>{
+    populateSubjects(true);
+    if(subjectSelect.value)populateTopics(true);
+  },0));
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>populateSubjects(true),0));
+  }else{
+    setTimeout(()=>populateSubjects(true),0);
+  }
+  window.addEventListener('pageshow',()=>setTimeout(()=>populateSubjects(true),0));
+})();
+</script>
+<!-- TIMER_DROPDOWNS_END -->
 
 </body>
 </html>
