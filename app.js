@@ -147,13 +147,80 @@
     if(state.cargo==='escrivao') html+=`<div class="template-day weekend" style="border-color:#d9c9ff;background:#faf8ff"><h4>Diferença do Escrivão</h4><div class="template-slot"><b>Matéria</b>Arquivologia no lugar de Contabilidade.</div><div class="template-slot"><b>Da sem. 9</b>3 treinos de digitação/semana, 10 min cada, retirados do bloco final de questões/revisão.</div><div class="template-slot"><b>Meta</b>Precisão primeiro; depois velocidade. Simular texto contínuo em qualquer teclado.</div></div>`;
     box.innerHTML=html;
   }
+  function weekVisibleItems(w){ return w.items.filter(includeForCargo).map(stripCargo); }
+  function cleanWeeklyTopic(text){
+    if(!text) return '';
+    const x=cargoize(stripCargo(text));
+    const idx=x.indexOf(':');
+    if(idx>0 && idx<48) return x.slice(idx+1).trim();
+    return x;
+  }
+  function findWeekItems(w, patterns){
+    const items=weekVisibleItems(w);
+    return items.filter(item=>patterns.some(rx=>rx.test(item)));
+  }
+  function joinedWeekTopic(w, patterns, fallback){
+    const found=findWeekItems(w,patterns).map(cleanWeeklyTopic);
+    return found.length?found.join(' + '):fallback;
+  }
+  function buildDailyPlan(w){
+    const legalBase=joinedWeekTopic(w,[/^Constitucional:/,/^Administrativo:/,/^Legislação Estadual:/,/^Constitucional\/Administrativo\/Estadual:/,/^Revisão dirigida de Constitucional/], 'Revisão de Constitucional / Administrativo / Legislação Estadual conforme caderno de erros');
+    const penal=joinedWeekTopic(w,[/^Penal:/,/^Leis penais especiais/], w.phase==='conteudo'?'Revisão + questões de Direito Penal':'Questões cronometradas + correção de Direito Penal');
+    const proc=joinedWeekTopic(w,[/^Processual Penal:/,/^Inquérito e provas/], w.phase==='conteudo'?'Revisão + questões de Processo Penal':'Questões cronometradas + correção de Processo Penal');
+    const port=joinedWeekTopic(w,[/^Português:/], w.phase==='conteudo'?'Revisão do último tópico de Português':'Questões de Português + caderno de erros');
+    const info=joinedWeekTopic(w,[/^Informática:/], w.phase==='conteudo'?'Revisão do último tópico de Informática':'Questões de Informática + pontos fracos');
+    const rlm=joinedWeekTopic(w,[/^RLM:/], w.phase==='conteudo'?'Revisão do último tópico de RLM':'Questões de RLM + fórmulas/erros');
+    const estat=joinedWeekTopic(w,[/^Estatística:/], w.phase==='conteudo'?'Revisão do último tópico de Estatística':'Questões de Estatística + fórmulas/erros');
+    const cargo=joinedWeekTopic(w,[/^Contabilidade/,/^Arquivologia/,/^Matéria específica do cargo:/], state.cargo==='agente'?'Contabilidade — revisão/questões conforme pontos fracos':'Arquivologia — revisão/questões conforme pontos fracos');
+    const legState=joinedWeekTopic(w,[/^Legislação Estadual:/,/^Constitucional\/Administrativo\/Estadual:/,/^Revisão dirigida de Constitucional/], penal);
+    if(w.number===22){
+      return [
+        ['Segunda','09:00–11:30','Revisão final','Pontos fracos + lei seca, sem conteúdo novo'],
+        ['Terça','09:00–11:30','Revisão final','Pontos fracos + questões erradas, sem conteúdo novo'],
+        ['Quarta','09:00–11:30','Simulado','Último simulado completo em ritmo de prova'],
+        ['Quinta','09:00–11:30','Correção','Caderno de erros + revisão dirigida'],
+        ['Sexta','09:00–11:30','Revisão leve','Lei seca + fórmulas + gramática'],
+        ['Sábado','até 2–3h','Logística','Revisão muito leve, materiais, local e descanso'],
+        ['Domingo','07/03/2027','PROVA','Escrivão pela manhã · Agente à tarde']
+      ];
+    }
+    return [
+      ['Segunda','09:00–10:10','Constitucional / Administrativo / Estadual',legalBase],
+      ['Segunda','10:20–11:10','Língua Portuguesa',port],
+      ['Segunda','11:10–11:30','Revisão','D+7 + caderno de erros'],
+      ['Terça','09:00–10:10','Direito Penal',penal],
+      ['Terça','10:20–11:10','Informática',info],
+      ['Terça','11:10–11:30','Questões','Questões do conteúdo do dia + correção'],
+      ['Quarta','09:00–10:10','Direito Processual Penal',proc],
+      ['Quarta','10:20–11:10','Raciocínio Lógico',rlm],
+      ['Quarta','11:10–11:30','Revisão','D+30 / flashcards'],
+      ['Quinta','09:00–10:10','Penal / Legislação Estadual',legState],
+      ['Quinta','10:20–11:10',state.cargo==='agente'?'Contabilidade Geral':'Noções de Arquivologia',cargo],
+      ['Quinta','11:10–11:30','Questões','Questões + registro de erros'],
+      ['Sexta','09:00–10:10','Estatística',estat],
+      ['Sexta','10:20–11:10','Português — treino',`Questões e reescrita sobre: ${port}`],
+      ['Sexta','11:10–11:30','Revisão semanal','Conferir pendências e planejar o fim de semana'],
+      ['Sábado','09:00–10:30','Específicos prioritários',`Reforço de Informática, RLM e Estatística dos assuntos desta semana`],
+      ['Sábado','10:45–12:15','Noções de Direito',`Reforço dos tópicos jurídicos da semana: ${legalBase}; ${penal}; ${proc}`],
+      ['Sábado','14:00–15:30',state.cargo==='agente'?'Contabilidade Geral':'Noções de Arquivologia',`Questões/revisão: ${cargo}`],
+      ['Sábado','15:45–17:15','Questões mistas','Bateria mista + revisões D+7/D+30'],
+      ['Domingo','09:00–12:00','Simulado',w.mock],
+      ['Domingo','15:45–16:45','Discursiva',w.essay]
+    ];
+  }
+  function renderDailyPlanTable(w){
+    const rows=buildDailyPlan(w);
+    return `<div class="week-daily-plan"><div class="daily-plan-head"><div><span class="eyebrow">ASSUNTOS POR DIA</span><h4>O que estudar em cada bloco</h4></div><span class="daily-plan-hint">matéria + assunto + horário</span></div><div class="daily-table-wrap"><table class="daily-plan-table"><thead><tr><th>Dia</th><th>Horário</th><th>Matéria</th><th>Assunto</th></tr></thead><tbody>${rows.map(r=>`<tr><td><strong>${esc(r[0])}</strong></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join('')}</tbody></table></div></div>`;
+  }
   function renderWeeks(phase='all'){
     const now=todayISO();
     $('#weekList').innerHTML=D.weeks.filter(w=>phase==='all'||w.phase===phase).map(w=>{
       const isCurrent=now>=w.start&&now<=w.end;
-      const items=w.items.filter(includeForCargo).map(stripCargo);
+      const openFirst=now<D.meta.startDate&&w.number===1;
+      const shouldOpen=isCurrent||openFirst;
+      const items=weekVisibleItems(w);
       const typing=state.cargo==='escrivao'&&w.number>=9?'<p><strong>Digitação:</strong> 3 × 10 min na semana; precisão e ritmo.</p>':'';
-      return `<details class="week-card ${isCurrent?'current':''}" data-phase="${w.phase}" data-week="${w.number}" ${isCurrent?'open':''}><summary><div class="week-no">SEM ${String(w.number).padStart(2,'0')}</div><div class="week-summary"><h3>${esc(w.title)}</h3><p>${fmtDate(w.start)} → ${fmtDate(w.end)}</p></div><div class="week-chevron">⌄</div></summary><div class="week-body"><div class="week-focus"><span class="eyebrow">FOCO DA SEMANA</span><ul>${items.map(x=>`<li>${esc(cargoize(x))}</li>`).join('')}</ul></div><div class="sunday-box"><h4>Domingo</h4><p><strong>Simulado:</strong> ${esc(w.mock)}</p><p><strong>Discursiva:</strong> ${esc(w.essay)}</p>${typing}${w.phase==='final'?'<p><strong>Regra:</strong> nenhum conteúdo novo.</p>':''}</div></div></details>`;
+      return `<details class="week-card ${isCurrent?'current':''}" data-phase="${w.phase}" data-week="${w.number}" ${shouldOpen?'open':''}><summary><div class="week-no">SEM ${String(w.number).padStart(2,'0')}</div><div class="week-summary"><h3>${esc(w.title)}</h3><p>${fmtDate(w.start)} → ${fmtDate(w.end)} · abra para ver os assuntos por dia</p></div><div class="week-chevron">⌄</div></summary><div class="week-body">${renderDailyPlanTable(w)}<div class="week-focus"><span class="eyebrow">FOCO DA SEMANA</span><ul>${items.map(x=>`<li>${esc(cargoize(x))}</li>`).join('')}</ul></div><div class="sunday-box"><h4>Domingo</h4><p><strong>Simulado:</strong> ${esc(w.mock)}</p><p><strong>Discursiva:</strong> ${esc(w.essay)}</p>${typing}${w.phase==='final'?'<p><strong>Regra:</strong> nenhum conteúdo novo.</p>':''}</div></div></details>`;
     }).join('');
   }
   $('#toggleTemplate').addEventListener('click',()=>{ const el=$('#weeklyTemplate'); el.style.display=el.style.display==='none'?'grid':'none'; });
