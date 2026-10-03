@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="description" content="Planner de estudos PCPE 2027 — Agente e Escrivão" />
+  <title>PCPE 2027 · Planner de Estudos</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">PC</div>
+        <div><strong>PCPE 2027</strong><span>Study Planner</span></div>
+      </div>
+      <nav class="nav" aria-label="Navegação principal">
+        <button class="nav-item active" data-page="dashboard"><span>⌂</span>Dashboard</button>
+        <button class="nav-item" data-page="cronograma"><span>▦</span>Cronograma</button>
+        <button class="nav-item" data-page="edital"><span>☑</span>Edital & progresso</button>
+        <button class="nav-item" data-page="questoes"><span>?</span>Questões</button>
+        <button class="nav-item" data-page="simulados"><span>◎</span>Simulados</button>
+        <button class="nav-item" data-page="historico"><span>↻</span>Histórico</button>
+        <button class="nav-item" data-page="config"><span>⚙</span>Configurações</button>
+      </nav>
+      <div class="sidebar-note">
+        <span class="dot"></span>
+        <div><strong>Prova: 07/03/2027</strong><small>Escrivão · manhã<br>Agente · tarde</small></div>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <button class="icon-btn mobile-only" id="menuBtn" aria-label="Abrir menu">☰</button>
+        <div class="topbar-title">
+          <span class="eyebrow">PLANO ÚNICO · AGENTE + ESCRIVÃO</span>
+          <h1 id="pageTitle">Dashboard</h1>
+        </div>
+        <div class="topbar-actions">
+          <label class="cargo-switch">
+            <span>Cargo</span>
+            <select id="cargoSelect">
+              <option value="agente">Agente</option>
+              <option value="escrivao">Escrivão</option>
+            </select>
+          </label>
+          <button class="timer-pill" id="timerOpen"><span class="pulse"></span><span id="timerMini">00:00:00</span></button>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="page active" id="page-dashboard">
+          <div class="hero-grid">
+            <article class="hero-card">
+              <div>
+                <span class="eyebrow">CONTAGEM REGRESSIVA</span>
+                <h2><span id="daysLeft">—</span> dias</h2>
+                <p>até a prova objetiva + discursiva</p>
+              </div>
+              <div class="radial" id="overallRadial"><span id="overallPct">0%</span></div>
+            </article>
+            <article class="alert-card">
+              <div class="alert-icon">!</div>
+              <div><strong>Formato atual da objetiva</strong><p>60 questões de múltipla escolha (A–E). Cada acerto vale 1 ponto; erro ou branco vale 0. Abaixo de 30 pontos elimina.</p></div>
+            </article>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card"><span>Tempo estudado</span><strong id="statHours">0h</strong><small id="statWeekHours">0h nesta semana</small></article>
+            <article class="stat-card"><span>Questões</span><strong id="statQuestions">0</strong><small id="statAccuracy">— de acerto</small></article>
+            <article class="stat-card"><span>Páginas lidas</span><strong id="statPages">0</strong><small>registradas no histórico</small></article>
+            <article class="stat-card"><span>Simulados</span><strong id="statMocks">0</strong><small id="statMockAvg">sem média ainda</small></article>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="panel span-2">
+              <div class="panel-head"><div><span class="eyebrow">HOJE</span><h3>Plano do dia</h3></div><button class="ghost-btn" data-goto="cronograma">Ver semana</button></div>
+              <div id="todayPlan" class="today-plan"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head"><div><span class="eyebrow">REVISÕES</span><h3>Fila D+7 / D+30</h3></div><span class="badge" id="reviewCount">0</span></div>
+              <div id="reviewQueue" class="review-list"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head"><div><span class="eyebrow">DIAGNÓSTICO</span><h3>Pontos fracos</h3></div></div>
+              <div id="weakPoints" class="weak-list"></div>
+            </article>
+            <article class="panel span-2">
+              <div class="panel-head"><div><span class="eyebrow">EVOLUÇÃO</span><h3>Progresso por matéria</h3></div></div>
+              <div id="subjectProgress" class="progress-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="page" id="page-cronograma">
+          <div class="intro-card">
+            <div><span class="eyebrow">05/10/2026 → 07/03/2027</span><h2>22 semanas com revisão espaçada e domingos de simulado</h2><p>Seg–sex: 09h–11h30. Fim de semana: meta de ~6h líquidas/dia, preservando intervalos. As semanas 21 e 22 são exclusivamente revisão final e simulados.</p></div>
+            <div class="legend"><span><i class="legend-dot content-dot"></i>Conteúdo</span><span><i class="legend-dot consolidation-dot"></i>Consolidação</span><span><i class="legend-dot final-dot"></i>Revisão final</span></div>
+          </div>
+          <article class="panel">
+            <div class="panel-head"><div><span class="eyebrow">CICLO FIXO</span><h3>Grade semanal-base</h3></div><button class="ghost-btn" id="toggleTemplate">Exibir/ocultar</button></div>
+            <div id="weeklyTemplate" class="weekly-template"></div>
+          </article>
+          <div class="week-toolbar">
+            <div class="segmented" id="phaseFilter"><button class="active" data-phase="all">Todas</button><button data-phase="conteudo">Conteúdo</button><button data-phase="consolidacao">Consolidação</button><button data-phase="final">Finais</button></div>
+            <button class="secondary-btn" id="jumpCurrent">Ir para semana atual</button>
+          </div>
+          <div id="weekList" class="week-list"></div>
+        </section>
+
+        <section class="page" id="page-edital">
+          <div class="intro-card">
+            <div><span class="eyebrow">CHECKLIST DO EDITAL</span><h2>Marque o que concluiu. O sistema agenda D+7 e D+30.</h2><p>O progresso é salvo neste navegador. Use exportação periódica em Configurações para manter um backup.</p></div>
+            <a class="primary-btn" href="https://www.cebraspe.org.br/concursos/pc_pe_26" target="_blank" rel="noopener">Abrir página oficial do concurso</a>
+          </div>
+          <div class="filter-row">
+            <input id="topicSearch" class="search-input" type="search" placeholder="Buscar assunto do edital…" />
+            <select id="subjectFilter"><option value="all">Todas as matérias</option></select>
+          </div>
+          <div id="syllabusList" class="syllabus-list"></div>
+        </section>
+
+        <section class="page" id="page-questoes">
+          <div class="intro-card">
+            <div><span class="eyebrow">TREINO A–E</span><h2>30 questões autorais por matéria, com comentário só após responder</h2><p>O módulo usa o formato de múltipla escolha do edital atual. As questões autorais são de fixação e não substituem questões oficiais da banca.</p></div>
+            <div class="question-score"><strong id="questionSessionScore">0/0</strong><span>nesta sessão</span></div>
+          </div>
+          <div class="question-controls panel">
+            <select id="questionSubject"></select>
+            <select id="questionMode"><option value="all">Bateria de 30</option><option value="unseen">Não respondidas</option><option value="wrong">Revisar erradas</option></select>
+            <button class="primary-btn" id="startQuestions">Iniciar bateria</button>
+          </div>
+          <div id="questionArea" class="question-area"></div>
+          <article class="panel sources-panel">
+            <div class="panel-head"><div><span class="eyebrow">QUESTÕES OFICIAIS</span><h3>Cadernos Cebraspe para treino complementar</h3></div></div>
+            <p class="muted">Para respeitar direitos autorais, o site não replica em massa 30 questões oficiais recentes por tema. Em vez disso, mantém o treino autoral acima e oferece atalhos para cadernos oficiais. Você pode resolver no PDF e registrar os resultados aqui.</p>
+            <div id="officialSources" class="source-grid"></div>
+          </article>
+        </section>
+
+        <section class="page" id="page-simulados">
+          <div class="intro-card">
+            <div><span class="eyebrow">DOMINGO = DIA DE PROVA</span><h2>Simulados progressivos + redação de até 30 linhas</h2><p>Registre objetiva, discursiva, tempo e matérias fracas. O painel calcula tendência e média.</p></div>
+            <button class="primary-btn" id="addMockBtn">+ Registrar simulado</button>
+          </div>
+          <div class="stats-grid compact">
+            <article class="stat-card"><span>Melhor objetiva</span><strong id="mockBest">—</strong><small>de 60</small></article>
+            <article class="stat-card"><span>Média objetiva</span><strong id="mockAvg">—</strong><small>de 60</small></article>
+            <article class="stat-card"><span>Média discursiva</span><strong id="essayAvg">—</strong><small>de 30</small></article>
+            <article class="stat-card"><span>Último simulado</span><strong id="mockLast">—</strong><small id="mockLastDate">sem registro</small></article>
+          </div>
+          <article class="panel">
+            <div class="panel-head"><div><span class="eyebrow">TENDÊNCIA</span><h3>Objetiva ao longo do tempo</h3></div></div>
+            <div id="mockChart" class="chart-wrap"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-head"><div><span class="eyebrow">HISTÓRICO</span><h3>Simulados registrados</h3></div></div>
+            <div id="mockTable" class="table-wrap"></div>
+          </article>
+        </section>
+
+        <section class="page" id="page-historico">
+          <div class="intro-card">
+            <div><span class="eyebrow">HISTÓRICO DE ESTUDO</span><h2>Sessões, páginas, questões e tempo líquido</h2><p>O cronômetro grava sessões automaticamente quando você clica em “Finalizar e salvar”.</p></div>
+            <button class="primary-btn" id="manualSessionBtn">+ Lançamento manual</button>
+          </div>
+          <article class="panel"><div id="historyTable" class="table-wrap"></div></article>
+        </section>
+
+        <section class="page" id="page-config">
+          <div class="settings-grid">
+            <article class="panel">
+              <div class="panel-head"><div><span class="eyebrow">PERFIL</span><h3>Preferências</h3></div></div>
+              <label class="field"><span>Nome da estudante</span><input id="studentName" placeholder="Ex.: Ana" /></label>
+              <label class="field"><span>Meta semanal líquida (horas)</span><input id="weeklyGoal" type="number" min="5" max="60" step="0.5" value="24.5" /></label>
+              <button class="primary-btn" id="saveSettings">Salvar preferências</button>
+            </article>
+            <article class="panel">
+              <div class="panel-head"><div><span class="eyebrow">BACKUP</span><h3>Exportar / importar</h3></div></div>
+              <p class="muted">Os dados ficam no <em>localStorage</em> do navegador. Exporte um JSON regularmente para não perder o histórico ao trocar de computador ou limpar dados do navegador.</p>
+              <div class="button-row"><button class="secondary-btn" id="exportData">Exportar JSON</button><label class="secondary-btn file-btn">Importar JSON<input id="importData" type="file" accept="application/json" hidden /></label></div>
+            </article>
+            <article class="panel danger-zone">
+              <div class="panel-head"><div><span class="eyebrow">ZONA DE RISCO</span><h3>Reiniciar dados</h3></div></div>
+              <p class="muted">Apaga progresso, histórico, questões e simulados deste navegador.</p><button class="danger-btn" id="resetData">Apagar todos os dados locais</button>
+            </article>
+            <article class="panel">
+              <div class="panel-head"><div><span class="eyebrow">SOBRE O PLANO</span><h3>Critérios usados</h3></div></div>
+              <ul class="clean-list"><li>20 questões de Noções de Direito (33,3%).</li><li>40 questões de Conhecimentos Específicos (66,7%).</li><li>Penal e Processual recebem reforço pela extensão do edital.</li><li>Português, Informática e RLM têm alta recorrência no ciclo.</li><li>Últimas 2 semanas: nenhum conteúdo novo.</li><li>Escrivão: Arquivologia substitui Contabilidade + treino de digitação.</li></ul>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="timerModal" aria-hidden="true">
+    <div class="modal timer-modal" role="dialog" aria-modal="true">
+      <button class="modal-close" data-close="timerModal">×</button>
+      <span class="eyebrow">CRONÔMETRO DE ESTUDO</span>
+      <div class="timer-display" id="timerDisplay">00:00:00</div>
+      <div class="timer-controls"><button class="primary-btn" id="timerStart">Iniciar</button><button class="secondary-btn" id="timerPause">Pausar</button><button class="ghost-btn" id="timerReset">Zerar</button></div>
+      <div class="timer-form">
+        <label class="field"><span>Matéria</span><select id="timerSubject"></select></label>
+        <label class="field"><span>Assunto (opcional)</span><input id="timerTopic" placeholder="Ex.: Inquérito policial" /></label>
+        <div class="two-cols"><label class="field"><span>Páginas lidas</span><input id="timerPages" type="number" min="0" value="0" /></label><label class="field"><span>Questões feitas</span><input id="timerQ" type="number" min="0" value="0" /></label></div>
+        <div class="two-cols"><label class="field"><span>Acertos</span><input id="timerCorrect" type="number" min="0" value="0" /></label><label class="field"><span>Erros</span><input id="timerWrong" type="number" min="0" value="0" /></label></div>
+        <button class="primary-btn full" id="timerFinish">Finalizar e salvar sessão</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="mockModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" data-close="mockModal">×</button>
+      <span class="eyebrow">NOVO SIMULADO</span><h2>Registrar resultado</h2>
+      <div class="two-cols"><label class="field"><span>Data</span><input id="mockDate" type="date" /></label><label class="field"><span>Cargo</span><select id="mockCargo"><option value="agente">Agente</option><option value="escrivao">Escrivão</option></select></label></div>
+      <div class="two-cols"><label class="field"><span>Objetiva (0–60)</span><input id="mockObjective" type="number" min="0" max="60" /></label><label class="field"><span>Discursiva (0–30)</span><input id="mockEssay" type="number" min="0" max="30" step="0.1" /></label></div>
+      <label class="field"><span>Tempo total (minutos)</span><input id="mockMinutes" type="number" min="0" /></label>
+      <label class="field"><span>Pontos fracos percebidos</span><input id="mockWeak" placeholder="Ex.: Processo Penal, Excel, Estatística" /></label>
+      <label class="field"><span>Tema da redação</span><input id="mockEssayTopic" placeholder="Tema praticado" /></label>
+      <label class="field"><span>Observações</span><textarea id="mockNotes" rows="3" placeholder="Erros recorrentes, estratégia de tempo etc."></textarea></label>
+      <button class="primary-btn full" id="saveMock">Salvar simulado</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="manualSessionModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" data-close="manualSessionModal">×</button>
+      <span class="eyebrow">LANÇAMENTO MANUAL</span><h2>Registrar sessão de estudo</h2>
+      <label class="field"><span>Matéria</span><select id="manualSubject"></select></label>
+      <label class="field"><span>Assunto</span><input id="manualTopic" /></label>
+      <div class="two-cols"><label class="field"><span>Minutos líquidos</span><input id="manualMinutes" type="number" min="1" /></label><label class="field"><span>Páginas</span><input id="manualPages" type="number" min="0" value="0" /></label></div>
+      <div class="two-cols"><label class="field"><span>Acertos</span><input id="manualCorrect" type="number" min="0" value="0" /></label><label class="field"><span>Erros</span><input id="manualWrong" type="number" min="0" value="0" /></label></div>
+      <button class="primary-btn full" id="saveManualSession">Salvar sessão</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
