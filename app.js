@@ -141,11 +141,77 @@
   function stripCargo(text){ return text.replace(/^Agente:\s*/,'').replace(/^Escrivão:\s*/,''); }
   function renderWeeklyTemplate(){
     const box=$('#weeklyTemplate');
-    let html=D.weeklyTemplate.weekday.map(d=>`<div class="template-day"><h4>${d.day}</h4>${d.blocks.map(b=>`<div class="template-slot"><b>${b[0]}</b>${esc(cargoize(b[2]))}</div>`).join('')}</div>`).join('');
-    html+=`<div class="template-day weekend"><h4>Sábado · ~6h líquidas</h4>${D.weeklyTemplate.saturday.map(b=>`<div class="template-slot"><b>${b[0]}</b>${esc(cargoize(b[2]))}</div>`).join('')}</div>`;
-    html+=`<div class="template-day weekend"><h4>Domingo · simulado + discursiva</h4>${D.weeklyTemplate.sunday.map(b=>`<div class="template-slot"><b>${b[0]}</b>${esc(cargoize(b[2]))}</div>`).join('')}</div>`;
-    if(state.cargo==='escrivao') html+=`<div class="template-day weekend" style="border-color:#d9c9ff;background:#faf8ff"><h4>Diferença do Escrivão</h4><div class="template-slot"><b>Matéria</b>Arquivologia no lugar de Contabilidade.</div><div class="template-slot"><b>Da sem. 9</b>3 treinos de digitação/semana, 10 min cada, retirados do bloco final de questões/revisão.</div><div class="template-slot"><b>Meta</b>Precisão primeiro; depois velocidade. Simular texto contínuo em qualquer teclado.</div></div>`;
-    box.innerHTML=html;
+    const cargo=state.cargo;
+    const now=todayISO();
+    const w=D.weeks.find(x=>now>=x.start&&now<=x.end) || (now<D.meta.startDate?D.weeks[0]:D.weeks[D.weeks.length-1]);
+    const days=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+    const dateIndex={Segunda:0,Terça:1,Quarta:2,Quinta:3,Sexta:4,Sábado:5,Domingo:6};
+    const shortDate=iso=>{const [y,m,d]=iso.split('-');return `${d}/${m}`;};
+
+    const items=weekVisibleItems(w);
+    const pick=(patterns,fallback)=>{
+      const found=items.filter(item=>patterns.some(rx=>rx.test(item))).map(cleanWeeklyTopic);
+      return found.length?found.join(' + '):fallback;
+    };
+    const legal=pick([/^Constitucional:/,/^Administrativo:/,/^Legislação Estadual:/,/^Constitucional\/Administrativo\/Estadual:/,/^Revisão dirigida de Constitucional/],'Revisão de Constitucional / Administrativo / Legislação Estadual');
+    const penal=pick([/^Penal:/,/^Leis penais especiais/],w.phase==='conteudo'?'Revisão + questões de Direito Penal':'Questões cronometradas + correção de Direito Penal');
+    const proc=pick([/^Processual Penal:/,/^Inquérito e provas/],w.phase==='conteudo'?'Revisão + questões de Processo Penal':'Questões cronometradas + correção de Processo Penal');
+    const port=pick([/^Português:/],w.phase==='conteudo'?'Revisão do último tópico de Português':'Questões de Português + caderno de erros');
+    const info=pick([/^Informática:/],w.phase==='conteudo'?'Revisão do último tópico de Informática':'Questões de Informática + pontos fracos');
+    const rlm=pick([/^RLM:/],w.phase==='conteudo'?'Revisão do último tópico de RLM':'Questões de RLM + fórmulas/erros');
+    const estat=pick([/^Estatística:/],w.phase==='conteudo'?'Revisão do último tópico de Estatística':'Questões de Estatística + fórmulas/erros');
+    const esp=pick([/^Contabilidade/,/^Arquivologia/,/^Matéria específica do cargo:/],cargo==='agente'?'Contabilidade — revisão/questões conforme pontos fracos':'Arquivologia — revisão/questões conforme pontos fracos');
+    const leg=pick([/^Legislação Estadual:/,/^Constitucional\/Administrativo\/Estadual:/,/^Revisão dirigida de Constitucional/],penal);
+
+    const rows=[
+      ['Segunda','09:00','Constitucional / Administrativo / Estadual',legal],
+      ['Segunda','10:20','Língua Portuguesa',port],
+      ['Segunda','11:10','Revisão','D+7 + caderno de erros'],
+      ['Terça','09:00','Direito Penal',penal],
+      ['Terça','10:20','Informática',info],
+      ['Terça','11:10','Questões','Questões do conteúdo do dia + correção'],
+      ['Quarta','09:00','Direito Processual Penal',proc],
+      ['Quarta','10:20','Raciocínio Lógico',rlm],
+      ['Quarta','11:10','Revisão','D+30 / flashcards'],
+      ['Quinta','09:00','Penal / Legislação Estadual',leg],
+      ['Quinta','10:20',cargo==='agente'?'Contabilidade Geral':'Noções de Arquivologia',esp],
+      ['Quinta','11:10','Questões','Questões + registro de erros'],
+      ['Sexta','09:00','Estatística',estat],
+      ['Sexta','10:20','Português — questões e reescrita',port],
+      ['Sexta','11:10','Revisão semanal','Conferir pendências e planejar o fim de semana'],
+      ['Sábado','09:00','Conhecimentos específicos prioritários','Reforçar Informática, RLM e Estatística dos assuntos desta semana'],
+      ['Sábado','10:45','Noções de Direito — Penal/Processual/Constitucional',`Reforçar: ${legal}; ${penal}; ${proc}`],
+      ['Sábado','14:00',cargo==='agente'?'Contabilidade Geral':'Noções de Arquivologia',esp],
+      ['Sábado','15:45','Questões mistas + revisões','Bateria mista + revisões D+7/D+30'],
+      ['Domingo','09:00','Simulado',w.mock],
+      ['Domingo','14:00','Correção detalhada','Caderno de erros + análise dos pontos fracos'],
+      ['Domingo','15:45','Discursiva',w.essay],
+      ['Domingo','17:00','Revisões + planejamento','D+7/D+30 + planejamento da próxima semana']
+    ];
+
+    box.classList.add('dynamic-cycle');
+    box.innerHTML=days.map(day=>{
+      const date=addDays(w.start,dateIndex[day]);
+      const dayRows=rows.filter(r=>r[0]===day);
+      const weekend=day==='Sábado'||day==='Domingo';
+      return `<div class="template-day ${weekend?'weekend':''}">
+        <div class="template-day-head"><h4>${esc(day)} · ${shortDate(date)}</h4><small>Semana ${String(w.number).padStart(2,'0')} · ${shortDate(w.start)}–${shortDate(w.end)}</small></div>
+        ${dayRows.map(r=>`<button type="button" class="cycle-slot"><span class="cycle-slot-main"><span class="cycle-slot-time">${esc(r[1])}</span><span class="cycle-slot-subject">${esc(r[2])}</span><span class="cycle-slot-chevron">⌄</span></span><span class="cycle-slot-detail"><strong>Assunto:</strong> ${esc(r[3])}</span></button>`).join('')}
+      </div>`;
+    }).join('');
+
+    $$('.cycle-slot',box).forEach(btn=>btn.addEventListener('click',()=>btn.classList.toggle('open')));
+
+    const panel=box.closest('.panel');
+    const title=panel?.querySelector('.panel-head h3');
+    if(title){
+      let label=panel.querySelector('.cycle-week-label');
+      if(!label){label=document.createElement('div');label.className='cycle-week-label';title.insertAdjacentElement('afterend',label);}
+      label.textContent=`Semana ${String(w.number).padStart(2,'0')} · ${shortDate(w.start)} a ${shortDate(w.end)}`;
+      let hint=panel.querySelector('.cycle-week-hint');
+      if(!hint){hint=document.createElement('div');hint.className='cycle-week-hint';label.insertAdjacentElement('afterend',hint);}
+      hint.textContent='Clique em qualquer bloco para ver o assunto exato daquela semana.';
+    }
   }
   function weekVisibleItems(w){ return w.items.filter(includeForCargo).map(stripCargo); }
   function cleanWeeklyTopic(text){
@@ -387,6 +453,5 @@
     safeRender('timer',updateTimerUI);
   }
 
-  if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js?v=20261003-3').catch(()=>{});
   startTimerTick(); renderAll();
 })();
