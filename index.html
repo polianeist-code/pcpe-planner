@@ -21,6 +21,34 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
 @media(max-width:840px){.mobile-only{display:block}.sidebar{transform:translateX(-100%);transition:.22s}.sidebar.open{transform:translateX(0)}.workspace{margin-left:0}.topbar{padding:0 18px}.content{padding:20px 16px 40px}.hero-grid,.dashboard-grid,.settings-grid{grid-template-columns:1fr}.span-2{grid-column:auto}.hero-card{min-height:160px}.hero-card h2{font-size:38px}.radial{width:94px;height:94px}.radial:before{width:68px;height:68px}.week-body{grid-template-columns:1fr}.weekly-template{grid-template-columns:1fr 1fr}.intro-card{align-items:flex-start;flex-direction:column}.legend{justify-content:flex-start}.topbar-title .eyebrow{display:none}.cargo-switch span{display:none}}
 @media(max-width:560px){.topbar{height:72px}.topbar-title h1{font-size:17px}.cargo-switch{padding:4px}.cargo-switch select{padding:7px 25px 7px 8px;font-size:11px}.timer-pill{padding:9px 10px}.stats-grid{grid-template-columns:1fr 1fr}.stat-card{padding:15px}.stat-card strong{font-size:22px}.today-plan,.weekly-template,.two-cols,.source-grid,.question-controls{grid-template-columns:1fr}.question-controls .primary-btn{grid-column:auto}.progress-row{grid-template-columns:120px 1fr 42px}.week-card summary{grid-template-columns:64px 1fr 20px;padding:14px}.week-no{padding:8px}.filter-row{flex-direction:column}.hero-grid{grid-template-columns:1fr}.hero-card{padding:22px}.alert-card{padding:19px}.timer-display{font-size:44px}.modal{padding:22px}.stats-grid.compact{grid-template-columns:1fr 1fr}.week-toolbar{align-items:flex-start;gap:10px;flex-direction:column}.segmented{width:100%;overflow:auto}.segmented button{flex:1}.source-grid{grid-template-columns:1fr}.daily-plan-hint{display:none}}
 
+
+/* Edital & progresso — cards expansíveis */
+.static-syllabus{display:grid;gap:14px}
+.static-subject-card{display:block;background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}
+.static-subject-card[hidden]{display:none!important}
+.static-subject-card>summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;background:#fbfcfe}
+.static-subject-card>summary::-webkit-details-marker{display:none}
+.static-subject-card[open]>summary{border-bottom:1px solid var(--line)}
+.static-subject-main{display:flex;align-items:center;gap:12px;min-width:0}
+.static-subject-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);flex:0 0 auto}
+.static-subject-main h3{font-size:14px;margin:0}
+.static-subject-main p{font-size:10px;color:var(--muted);margin:3px 0 0}
+.static-subject-side{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.static-progress{font-size:10px;font-weight:800;color:#536174;background:#f1f4f8;border-radius:999px;padding:5px 8px}
+.static-chevron{font-size:16px;color:#98a2b3}
+.static-subject-card[open] .static-chevron{transform:rotate(180deg)}
+.static-topic-list{display:flex!important;flex-direction:column!important;width:100%;padding:0!important;margin:0!important}
+.static-topic-row{display:flex!important;width:100%!important;align-items:flex-start!important;gap:10px!important;padding:12px 16px!important;margin:0!important;border-top:1px solid #f0f2f5!important;background:#fff!important;box-sizing:border-box!important}
+.static-topic-row:first-child{border-top:0!important}
+.static-topic-row:hover{background:#fafbff!important}
+.static-topic-check{flex:0 0 auto!important;width:18px!important;height:18px!important;margin:2px 0 0!important;accent-color:var(--accent)}
+.static-topic-text{display:block!important;flex:1 1 auto!important;min-width:0!important;font-size:12px!important;line-height:1.45!important;color:#344054!important;white-space:normal!important}
+.static-topic-check:checked+.static-topic-text{text-decoration:line-through;color:#98a2b3!important}
+@media(max-width:760px){
+  .static-subject-card>summary{align-items:flex-start;flex-direction:column}
+  .static-subject-side{justify-content:flex-start}
+}
+
 </style>
 </head>
 <body>
