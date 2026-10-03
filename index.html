@@ -1026,3 +1026,95 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
   const cargoSelect=document.getElementById('cargoSelect');
   const search=document.getElementById('topicSearch');
   const filter=document.getElementById('subjectFilter');
+
+  const STATIC_KEY='pcpeSyllabusProgressV1';
+
+  function loadMain(){
+    try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}
+  }
+  function saveMain(obj){
+    try{localStorage.setItem(KEY,JSON.stringify(obj))}catch(e){}
+  }
+  function loadStatic(){
+    try{return JSON.parse(localStorage.getItem(STATIC_KEY)||'{}')}catch(e){return {}}
+  }
+  function saveStatic(obj){
+    try{localStorage.setItem(STATIC_KEY,JSON.stringify(obj))}catch(e){}
+  }
+  function mergedTopics(){
+    const main=loadMain();
+    return Object.assign({}, main.topics||{}, loadStatic());
+  }
+  function applySaved(){
+    const topics=mergedTopics();
+    list.querySelectorAll('.static-topic-check').forEach(cb=>{
+      cb.checked=!!topics[cb.dataset.key]?.completed;
+    });
+    updateCounts();
+  }
+  function updateCounts(){
+    list.querySelectorAll('.static-subject-card').forEach(card=>{
+      const checks=[...card.querySelectorAll('.static-topic-check')];
+      const done=checks.filter(x=>x.checked).length;
+      const p=card.querySelector('.static-progress');
+      if(p) p.textContent=done+'/'+checks.length;
+    });
+  }
+  function applyFilters(){
+    const cargo=cargoSelect?.value||'agente';
+    const q=(search?.value||'').trim().toLowerCase();
+    const sid=filter?.value||'all';
+    list.querySelectorAll('.static-subject-card').forEach(card=>{
+      const cargoOk=card.dataset.cargo==='common'||card.dataset.cargo===cargo;
+      const subjectOk=sid==='all'||card.dataset.subjectId===sid;
+      let topicOk=!q||card.dataset.subjectName.includes(q);
+      if(q&&!topicOk){
+        topicOk=[...card.querySelectorAll('.static-topic-row')].some(r=>r.dataset.topic.includes(q));
+      }
+      card.hidden=!(cargoOk&&subjectOk&&topicOk);
+      if(q&&topicOk) card.open=true;
+    });
+  }
+
+  list.addEventListener('change',e=>{
+    const cb=e.target.closest('.static-topic-check');
+    if(!cb) return;
+
+    const rec=cb.checked
+      ? {completed:true,completedAt:new Date().toISOString().slice(0,10),d7:false,d30:false}
+      : null;
+
+    const staticState=loadStatic();
+    if(rec) staticState[cb.dataset.key]=rec;
+    else delete staticState[cb.dataset.key];
+    saveStatic(staticState);
+
+    const main=loadMain();
+    main.topics=main.topics||{};
+    if(rec) main.topics[cb.dataset.key]=rec;
+    else delete main.topics[cb.dataset.key];
+    saveMain(main);
+
+    updateCounts();
+  });
+
+  cargoSelect?.addEventListener('change',()=>{
+    const main=loadMain();
+    main.cargo=cargoSelect.value;
+    saveMain(main);
+    applyFilters();
+  });
+  search?.addEventListener('input',applyFilters);
+  filter?.addEventListener('change',applyFilters);
+
+  applySaved();
+  applyFilters();
+
+  // Reapply after browser restoration / other scripts finish.
+  window.addEventListener('pageshow',()=>setTimeout(applySaved,0));
+  setTimeout(applySaved,250);
+})();
+</script>
+
+</body>
+</html>
