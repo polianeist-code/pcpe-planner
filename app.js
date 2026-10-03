@@ -367,8 +367,23 @@
 
   function cryptoId(){ return (self.crypto?.randomUUID?.()||`${Date.now()}-${Math.random().toString(16).slice(2)}`); }
 
+  function safeRender(name,fn){
+    try{ fn(); }
+    catch(err){ console.error('[PCPE Planner] '+name,err); }
+  }
   function renderAll(){
-    $('#cargoSelect').value=state.cargo; fillSubjectSelects(); renderQuestionSourceOptions(); renderDashboard(); renderWeeklyTemplate(); renderWeeks(); renderSyllabus(); renderOfficialSources(); renderMocks(); renderHistory(); renderSettings(); updateTimerUI();
+    $('#cargoSelect').value=state.cargo;
+    safeRender('cronograma-base',renderWeeklyTemplate);
+    safeRender('cronograma-semanas',()=>renderWeeks());
+    safeRender('seletores',fillSubjectSelects);
+    safeRender('questoes-opcoes',renderQuestionSourceOptions);
+    safeRender('dashboard',renderDashboard);
+    safeRender('edital',renderSyllabus);
+    safeRender('fontes',renderOfficialSources);
+    safeRender('simulados',renderMocks);
+    safeRender('historico',renderHistory);
+    safeRender('configuracoes',renderSettings);
+    safeRender('timer',updateTimerUI);
   }
 
   if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});
