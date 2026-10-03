@@ -145,6 +145,25 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
 }
 #timerTopic:disabled{background:#f5f7fa;color:#98a2b3;cursor:not-allowed}
 
+
+/* Ciclo semanal estático detalhado */
+.static-cycle{grid-template-columns:repeat(5,1fr)!important}
+.static-cycle .cycle-week-banner{grid-column:1/-1;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:12px 14px;border:1px solid #dfe5ff;background:#f6f8ff;border-radius:12px}
+.static-cycle .cycle-week-banner strong{font-size:13px;color:#24366f}.static-cycle .cycle-week-banner span{font-size:10px;color:#6a7690}
+.static-cycle .template-day{padding:0!important;overflow:hidden;background:#fff!important}
+.static-cycle .template-day-head{padding:13px 14px 10px;background:#f8fafc;border-bottom:1px solid #e8ebf0}
+.static-cycle .template-day-head h4{margin:0!important;font-size:12px!important}.static-cycle .template-day-head small{display:block;margin-top:3px;color:#7b8798;font-size:9.5px;font-weight:700}
+.cycle-static-slot{border-top:1px solid #eef1f5;background:#fff}
+.cycle-static-slot:first-of-type{border-top:0}
+.cycle-static-slot summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:42px 1fr 14px;gap:7px;align-items:start;padding:10px 13px}
+.cycle-static-slot summary::-webkit-details-marker{display:none}
+.cycle-static-slot summary:hover{background:#f8faff}.cycle-static-slot summary b{font-size:10px;color:#233252}.cycle-static-slot summary span{font-size:10.5px;line-height:1.35;color:#4f5b73}.cycle-static-slot summary i{font-style:normal;font-size:11px;color:#98a2b3}
+.cycle-static-slot[open] summary i{transform:rotate(180deg)}
+.cycle-static-slot>div{margin:0 13px 10px 62px;padding:8px 9px;border-radius:9px;background:#eef3ff;color:#31436e;font-size:10px;line-height:1.5;border:1px solid #dfe6ff}
+@media(max-width:1100px){.static-cycle{grid-template-columns:repeat(3,1fr)!important}}
+@media(max-width:840px){.static-cycle{grid-template-columns:1fr 1fr!important}.static-cycle .cycle-week-banner{flex-direction:column;align-items:flex-start}}
+@media(max-width:560px){.static-cycle{grid-template-columns:1fr!important}.static-cycle .template-day.weekend{grid-column:auto!important}}
+
 </style>
 </head>
 <body>
@@ -239,7 +258,63 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
           </div>
           <article class="panel">
             <div class="panel-head"><div><span class="eyebrow">CICLO FIXO</span><h3>Grade semanal-base</h3></div><button class="ghost-btn" id="toggleTemplate">Exibir/ocultar</button></div>
-            <div id="weeklyTemplate" class="weekly-template"><div class="template-day"><h4>Segunda</h4><div class="template-slot"><b>09:00</b>Constitucional / Administrativo / Legislação Estadual (rotação)</div><div class="template-slot"><b>10:20</b>Língua Portuguesa</div><div class="template-slot"><b>11:10</b>Revisão D+7 + caderno de erros</div></div><div class="template-day"><h4>Terça</h4><div class="template-slot"><b>09:00</b>Direito Penal</div><div class="template-slot"><b>10:20</b>Informática</div><div class="template-slot"><b>11:10</b>Questões Cebraspe/estilo da banca + correção</div></div><div class="template-day"><h4>Quarta</h4><div class="template-slot"><b>09:00</b>Direito Processual Penal</div><div class="template-slot"><b>10:20</b>Raciocínio Lógico</div><div class="template-slot"><b>11:10</b>Revisão D+30 / flashcards</div></div><div class="template-day"><h4>Quinta</h4><div class="template-slot"><b>09:00</b>Penal / Legislação Estadual (rotação)</div><div class="template-slot"><b>10:20</b>Noções de Arquivologia</div><div class="template-slot"><b>11:10</b>Questões + registro de erros</div></div><div class="template-day"><h4>Sexta</h4><div class="template-slot"><b>09:00</b>Estatística</div><div class="template-slot"><b>10:20</b>Português — questões e reescrita</div><div class="template-slot"><b>11:10</b>Revisão semanal + planejamento</div></div><div class="template-day weekend"><h4>Sábado · ~6h líquidas</h4><div class="template-slot"><b>09:00</b>Conhecimentos específicos prioritários</div><div class="template-slot"><b>10:45</b>Noções de Direito — Penal/Processual/Constitucional</div><div class="template-slot"><b>14:00</b>Noções de Arquivologia</div><div class="template-slot"><b>15:45</b>Questões mistas + revisões D+7/D+30</div></div><div class="template-day weekend"><h4>Domingo · simulado + discursiva</h4><div class="template-slot"><b>09:00</b>Simulado progressivo / completo conforme a semana</div><div class="template-slot"><b>14:00</b>Correção detalhada e caderno de erros</div><div class="template-slot"><b>15:45</b>Discursiva — tema da semana, até 30 linhas</div><div class="template-slot"><b>17:00</b>Revisões D+7/D+30 + planejamento da próxima semana</div></div><div class="template-day weekend" style="border-color:#d9c9ff;background:#faf8ff"><h4>Diferença do Escrivão</h4><div class="template-slot"><b>Matéria</b>Arquivologia no lugar de Contabilidade.</div><div class="template-slot"><b>Da sem. 9</b>Treinos de digitação cronometrados.</div></div></div>
+            <div id="weeklyTemplate" class="weekly-template static-cycle" data-static-cycle="true">
+  <div class="cycle-week-banner">
+    <strong>Semana 01 · 05/10 a 11/10</strong>
+    <span>Clique em cada bloco para ver o tópico exato e o tipo de estudo.</span>
+  </div>
+
+  <div class="template-day">
+    <div class="template-day-head"><h4>Segunda · 05/10</h4><small>Semana 01</small></div>
+    <details class="cycle-static-slot"><summary><b>09:00</b><span>Constitucional / Administrativo</span><i>⌄</i></summary><div><strong>Tópico:</strong> Constitucional — princípios fundamentais e direitos fundamentais; Administrativo — Estado, governo, administração e princípios.<br><strong>Tipo:</strong> PDF</div></details>
+    <details class="cycle-static-slot"><summary><b>10:20</b><span>Língua Portuguesa</span><i>⌄</i></summary><div><strong>Tópico:</strong> Compreensão e interpretação de textos + tipos e gêneros textuais.<br><strong>Tipo:</strong> Vídeo aula</div></details>
+    <details class="cycle-static-slot"><summary><b>11:10</b><span>Revisão</span><i>⌄</i></summary><div><strong>Tópico:</strong> Revisão D+7 e atualização do caderno de erros.<br><strong>Tipo:</strong> Revisão</div></details>
+  </div>
+
+  <div class="template-day">
+    <div class="template-day-head"><h4>Terça · 06/10</h4><small>Semana 01</small></div>
+    <details class="cycle-static-slot"><summary><b>09:00</b><span>Direito Penal</span><i>⌄</i></summary><div><strong>Tópico:</strong> Princípios básicos; crime e contravenção; aplicação da lei penal.<br><strong>Tipo:</strong> PDF</div></details>
+    <details class="cycle-static-slot"><summary><b>10:20</b><span>Informática</span><i>⌄</i></summary><div><strong>Tópico:</strong> Windows — janelas, menus, barra de tarefas, área de trabalho, pastas e arquivos.<br><strong>Tipo:</strong> Vídeo aula</div></details>
+    <details class="cycle-static-slot"><summary><b>11:10</b><span>Questões</span><i>⌄</i></summary><div><strong>Tópico:</strong> Questões dos conteúdos estudados na terça + correção comentada.<br><strong>Tipo:</strong> Questões</div></details>
+  </div>
+
+  <div class="template-day">
+    <div class="template-day-head"><h4>Quarta · 07/10</h4><small>Semana 01</small></div>
+    <details class="cycle-static-slot"><summary><b>09:00</b><span>Direito Processual Penal</span><i>⌄</i></summary><div><strong>Tópico:</strong> Aplicação da lei processual penal no tempo, espaço e pessoas + inquérito policial.<br><strong>Tipo:</strong> PDF</div></details>
+    <details class="cycle-static-slot"><summary><b>10:20</b><span>Raciocínio Lógico</span><i>⌄</i></summary><div><strong>Tópico:</strong> Conjuntos numéricos; razões e proporções.<br><strong>Tipo:</strong> Vídeo aula</div></details>
+    <details class="cycle-static-slot"><summary><b>11:10</b><span>Revisão</span><i>⌄</i></summary><div><strong>Tópico:</strong> Revisão D+30 / flashcards dos assuntos vencidos.<br><strong>Tipo:</strong> Revisão</div></details>
+  </div>
+
+  <div class="template-day">
+    <div class="template-day-head"><h4>Quinta · 08/10</h4><small>Semana 01</small></div>
+    <details class="cycle-static-slot"><summary><b>09:00</b><span>Direito Penal — reforço</span><i>⌄</i></summary><div><strong>Tópico:</strong> Fixação de princípios, crime/contravenção e aplicação da lei penal.<br><strong>Tipo:</strong> Questões</div></details>
+    <details class="cycle-static-slot"><summary><b>10:20</b><span>Matéria específica do cargo</span><i>⌄</i></summary><div><strong>Tópico (Escrivão):</strong> Arquivística — princípios, conceitos e funções arquivísticas.<br><strong>Tópico (Agente):</strong> Contabilidade — conceitos, objetivos, patrimônio e equação patrimonial.<br><strong>Tipo:</strong> PDF</div></details>
+    <details class="cycle-static-slot"><summary><b>11:10</b><span>Questões</span><i>⌄</i></summary><div><strong>Tópico:</strong> Questões do conteúdo da quinta + registro dos erros.<br><strong>Tipo:</strong> Questões</div></details>
+  </div>
+
+  <div class="template-day">
+    <div class="template-day-head"><h4>Sexta · 09/10</h4><small>Semana 01</small></div>
+    <details class="cycle-static-slot"><summary><b>09:00</b><span>Estatística</span><i>⌄</i></summary><div><strong>Tópico:</strong> Estatística descritiva; leitura de gráficos, diagramas e tabelas.<br><strong>Tipo:</strong> Vídeo aula</div></details>
+    <details class="cycle-static-slot"><summary><b>10:20</b><span>Português — treino</span><i>⌄</i></summary><div><strong>Tópico:</strong> Questões de interpretação e gêneros textuais + reescrita.<br><strong>Tipo:</strong> Questões</div></details>
+    <details class="cycle-static-slot"><summary><b>11:10</b><span>Revisão semanal</span><i>⌄</i></summary><div><strong>Tópico:</strong> Rever erros da semana e pendências antes do fim de semana.<br><strong>Tipo:</strong> Revisão</div></details>
+  </div>
+
+  <div class="template-day weekend">
+    <div class="template-day-head"><h4>Sábado · 10/10</h4><small>Semana 01 · ~6h líquidas</small></div>
+    <details class="cycle-static-slot"><summary><b>09:00</b><span>Específicos prioritários</span><i>⌄</i></summary><div><strong>Tópico:</strong> Windows + conjuntos/razões e proporções + gráficos e tabelas em Estatística.<br><strong>Tipo:</strong> PDF + Questões</div></details>
+    <details class="cycle-static-slot"><summary><b>10:45</b><span>Noções de Direito</span><i>⌄</i></summary><div><strong>Tópico:</strong> Princípios fundamentais; Estado/governo/administração; princípios penais; inquérito policial.<br><strong>Tipo:</strong> Revisão + Questões</div></details>
+    <details class="cycle-static-slot"><summary><b>14:00</b><span>Matéria específica do cargo</span><i>⌄</i></summary><div><strong>Tópico (Escrivão):</strong> princípios, conceitos e funções arquivísticas.<br><strong>Tópico (Agente):</strong> conceitos, patrimônio e equação patrimonial.<br><strong>Tipo:</strong> Questões</div></details>
+    <details class="cycle-static-slot"><summary><b>15:45</b><span>Questões mistas</span><i>⌄</i></summary><div><strong>Tópico:</strong> Bateria mista de todos os conteúdos da Semana 01 + D+7/D+30.<br><strong>Tipo:</strong> Questões + Revisão</div></details>
+  </div>
+
+  <div class="template-day weekend">
+    <div class="template-day-head"><h4>Domingo · 11/10</h4><small>Semana 01 · simulado + discursiva</small></div>
+    <details class="cycle-static-slot"><summary><b>09:00</b><span>Simulado</span><i>⌄</i></summary><div><strong>Tópico:</strong> 30 questões dos conteúdos estudados na Semana 01, em 90 minutos.<br><strong>Tipo:</strong> Questões</div></details>
+    <details class="cycle-static-slot"><summary><b>14:00</b><span>Correção detalhada</span><i>⌄</i></summary><div><strong>Tópico:</strong> Corrigir o simulado, classificar os erros e atualizar o caderno de erros.<br><strong>Tipo:</strong> Revisão</div></details>
+    <details class="cycle-static-slot"><summary><b>15:45</b><span>Discursiva</span><i>⌄</i></summary><div><strong>Tópico:</strong> Integração entre inteligência policial e prevenção da violência — até 30 linhas.<br><strong>Tipo:</strong> Questões / Produção</div></details>
+    <details class="cycle-static-slot"><summary><b>17:00</b><span>Planejamento</span><i>⌄</i></summary><div><strong>Tópico:</strong> Revisões D+7/D+30 e preparação da Semana 02.<br><strong>Tipo:</strong> Revisão</div></details>
+  </div>
+</div>
           </article>
           <div class="week-toolbar">
             <div class="segmented" id="phaseFilter"><button class="active" data-phase="all">Todas</button><button data-phase="conteudo">Conteúdo</button><button data-phase="consolidacao">Consolidação</button><button data-phase="final">Finais</button></div>
@@ -1446,7 +1521,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
   })();
   </script>
 <!-- SCHEDULE_BOOTSTRAP_END -->
-  <script src="app.js?v=20261003-14"></script>
+  <script src="app.js?v=20261003-15"></script>
 
 
 
@@ -1602,81 +1677,6 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
 })();
 </script>
 <!-- CACHE_CLEANUP_END -->
-<!-- FORCE_CYCLE_RENDER_V14_START -->
-<script>
-(function(){
-  function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
-  function parseIso(iso){const a=iso.split('-').map(Number);return new Date(a[0],a[1]-1,a[2]);}
-  function add(iso,n){const d=parseIso(iso);d.setDate(d.getDate()+n);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');}
-  function dm(iso){const a=iso.split('-');return a[2]+'/'+a[1];}
-  function cargo(){return document.getElementById('cargoSelect')?.value||'agente';}
-  function visible(w,c){return (w.items||[]).filter(t=>!t.startsWith('Agente:')&&!t.startsWith('Escrivão:')||(c==='agente'&&t.startsWith('Agente:'))||(c==='escrivao'&&t.startsWith('Escrivão:'))).map(t=>t.replace(/^Agente:\s*/,'').replace(/^Escrivão:\s*/,''));}
-  function clean(t){const i=t.indexOf(':');return i>0&&i<55?t.slice(i+1).trim():t;}
-  function pick(items,res,fallback){const f=items.filter(x=>res.some(rx=>rx.test(x))).map(clean);return f.length?f.join(' + '):fallback;}
-  function week(D){
-    const now=new Date(), iso=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
-    return D.weeks.find(w=>iso>=w.start&&iso<=w.end)||(iso<D.meta.startDate?D.weeks[0]:D.weeks[D.weeks.length-1]);
-  }
-  function render(){
-    const D=window.PCPE_DATA,box=document.getElementById('weeklyTemplate'); if(!D||!box)return;
-    const c=cargo(),w=week(D),items=visible(w,c);
-    const legal=pick(items,[/^Constitucional:/,/^Administrativo:/,/^Legislação Estadual:/,/^Constitucional\/Administrativo\/Estadual:/,/^Revisão dirigida de Constitucional/],'Revisão dirigida de Constitucional, Administrativo e Legislação Estadual');
-    const penal=pick(items,[/^Penal:/,/^Leis penais especiais/],'Revisão e questões de Direito Penal');
-    const proc=pick(items,[/^Processual Penal:/,/^Inquérito e provas/],'Revisão e questões de Processo Penal');
-    const port=pick(items,[/^Português:/],'Revisão e questões de Português');
-    const info=pick(items,[/^Informática:/],'Revisão e questões de Informática');
-    const rlm=pick(items,[/^RLM:/],'Revisão e questões de RLM');
-    const estat=pick(items,[/^Estatística:/],'Revisão e questões de Estatística');
-    const esp=pick(items,[/^Contabilidade/,/^Arquivologia/,/^Matéria específica do cargo:/],c==='agente'?'Contabilidade — revisão e questões':'Arquivologia — revisão e questões');
-    const leg=pick(items,[/^Legislação Estadual:/,/^Constitucional\/Administrativo\/Estadual:/,/^Revisão dirigida de Constitucional/],penal);
-    const rows=[
-      ['Segunda','09:00','Constitucional / Administrativo / Estadual',legal,'PDF / Vídeo aula'],
-      ['Segunda','10:20','Língua Portuguesa',port,'PDF / Vídeo aula'],
-      ['Segunda','11:10','Revisão','D+7 + caderno de erros','Revisão'],
-      ['Terça','09:00','Direito Penal',penal,'PDF / Vídeo aula'],
-      ['Terça','10:20','Informática',info,'PDF / Vídeo aula'],
-      ['Terça','11:10','Questões','Conteúdo estudado no dia + correção','Questões'],
-      ['Quarta','09:00','Direito Processual Penal',proc,'PDF / Vídeo aula'],
-      ['Quarta','10:20','Raciocínio Lógico',rlm,'PDF / Vídeo aula'],
-      ['Quarta','11:10','Revisão','D+30 / flashcards','Revisão'],
-      ['Quinta','09:00','Penal / Legislação Estadual',leg,'PDF / Vídeo aula'],
-      ['Quinta','10:20',c==='agente'?'Contabilidade Geral':'Noções de Arquivologia',esp,'PDF / Vídeo aula'],
-      ['Quinta','11:10','Questões','Questões dos conteúdos da quinta + registro de erros','Questões'],
-      ['Sexta','09:00','Estatística',estat,'PDF / Vídeo aula'],
-      ['Sexta','10:20','Português — treino',port,'Questões'],
-      ['Sexta','11:10','Revisão semanal','Pendências e caderno de erros','Revisão'],
-      ['Sábado','09:00','Específicos prioritários','Informática: '+info+'; RLM: '+rlm+'; Estatística: '+estat,'PDF / Questões'],
-      ['Sábado','10:45','Noções de Direito','Constitucional/Administrativo: '+legal+'; Penal: '+penal+'; Processo Penal: '+proc,'Revisão / Questões'],
-      ['Sábado','14:00',c==='agente'?'Contabilidade Geral':'Noções de Arquivologia',esp,'PDF / Questões'],
-      ['Sábado','15:45','Questões mistas','Bateria mista dos assuntos da semana + D+7/D+30','Questões / Revisão'],
-      ['Domingo','09:00','Simulado',w.mock,'Questões'],
-      ['Domingo','14:00','Correção detalhada','Caderno de erros e análise dos pontos fracos','Revisão'],
-      ['Domingo','15:45','Discursiva',w.essay,'Questões / Produção'],
-      ['Domingo','17:00','Planejamento','D+7/D+30 e planejamento da próxima semana','Revisão']
-    ];
-    const days=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],di={Segunda:0,Terça:1,Quarta:2,Quinta:3,Sexta:4,Sábado:5,Domingo:6};
-    box.classList.add('dynamic-cycle');
-    box.innerHTML=days.map(day=>{
-      const rs=rows.filter(r=>r[0]===day),date=add(w.start,di[day]),weekend=day==='Sábado'||day==='Domingo';
-      return '<div class="template-day '+(weekend?'weekend':'')+'"><div class="template-day-head"><h4>'+esc(day)+' · '+dm(date)+'</h4><small>Semana '+String(w.number).padStart(2,'0')+' · '+dm(w.start)+'–'+dm(w.end)+'</small></div>'+
-      rs.map(r=>'<button type="button" class="cycle-slot"><span class="cycle-slot-main"><span class="cycle-slot-time">'+esc(r[1])+'</span><span class="cycle-slot-subject">'+esc(r[2])+'</span><span class="cycle-slot-chevron">⌄</span></span><span class="cycle-slot-detail"><strong>Tópico:</strong> '+esc(r[3])+'<br><strong>Tipo:</strong> '+esc(r[4])+'</span></button>').join('')+'</div>';
-    }).join('');
-    box.querySelectorAll('.cycle-slot').forEach(b=>b.onclick=()=>b.classList.toggle('open'));
-    const panel=box.closest('.panel'),title=panel?.querySelector('.panel-head h3');
-    if(title){
-      let l=panel.querySelector('.cycle-week-label');if(!l){l=document.createElement('div');l.className='cycle-week-label';title.insertAdjacentElement('afterend',l);}
-      l.textContent='Semana '+String(w.number).padStart(2,'0')+' · '+dm(w.start)+' a '+dm(w.end);
-      let i=panel.querySelector('.cycle-week-hint');if(!i){i=document.createElement('div');i.className='cycle-week-hint';l.insertAdjacentElement('afterend',i);}
-      i.textContent='Clique em cada bloco para ver o tópico e o tipo de estudo.';
-    }
-  }
-  function run(){setTimeout(render,50);setTimeout(render,500);}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
-  document.getElementById('cargoSelect')?.addEventListener('change',run);
-  document.querySelector('[data-page="cronograma"]')?.addEventListener('click',run);
-  window.addEventListener('pageshow',run);
-})();
-</script>
-<!-- FORCE_CYCLE_RENDER_V14_END -->
+
 </body>
 </html>
