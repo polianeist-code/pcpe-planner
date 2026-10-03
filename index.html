@@ -113,7 +113,7 @@
         <section class="page" id="page-edital">
           <div class="intro-card">
             <div><span class="eyebrow">CHECKLIST DO EDITAL</span><h2>Marque o que concluiu. O sistema agenda D+7 e D+30.</h2><p>O progresso é salvo neste navegador. Use exportação periódica em Configurações para manter um backup.</p></div>
-            <a class="primary-btn" href="https://www.cebraspe.org.br/concursos/pc_pe_26" target="_blank" rel="noopener">Abrir página oficial do concurso</a>
+            <a class="primary-btn" href="assets/edital-pcpe-2026.pdf" target="_blank" rel="noopener">Abrir edital PDF</a>
           </div>
           <div class="filter-row">
             <input id="topicSearch" class="search-input" type="search" placeholder="Buscar assunto do edital…" />
@@ -241,6 +241,107 @@
   <div id="toast" class="toast" role="status"></div>
 
   <script src="data.js?v=20261003-2"></script>
+<!-- SCHEDULE_BOOTSTRAP_START -->
+  <script>
+  (function(){
+    function esc(s){return String(s??'').replace(/[&<>\"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]});}
+    function getCargo(){
+      try{
+        var raw=localStorage.getItem('pcpePlannerStateV1');
+        if(raw){var obj=JSON.parse(raw); if(obj&&obj.cargo) return obj.cargo;}
+      }catch(e){}
+      var sel=document.getElementById('cargoSelect');
+      return sel&&sel.value?sel.value:'agente';
+    }
+    function fmt(iso){var a=iso.split('-');return a[2]+'/'+a[1]+'/'+a[0];}
+    function cargoize(t,c){
+      if(t.indexOf('Agente: Contabilidade | Escrivão: Arquivologia')>=0) return c==='agente'?'Contabilidade Geral':'Noções de Arquivologia';
+      return t;
+    }
+    function visibleItems(w,c){
+      return w.items.filter(function(t){
+        if(t.indexOf('Agente:')===0) return c==='agente';
+        if(t.indexOf('Escrivão:')===0) return c==='escrivao';
+        return true;
+      }).map(function(t){return t.replace(/^Agente:\s*/,'').replace(/^Escrivão:\s*/,'');});
+    }
+    function clean(t,c){
+      t=cargoize(t,c); var i=t.indexOf(':');
+      if(i>0&&i<48) return t.slice(i+1).trim();
+      return t;
+    }
+    function pick(w,c,res,fallback){
+      var f=visibleItems(w,c).filter(function(x){return res.some(function(rx){return rx.test(x);});}).map(function(x){return clean(x,c);});
+      return f.length?f.join(' + '):fallback;
+    }
+    function plan(w,c){
+      if(w.number===22) return [
+        ['Segunda','09:00–11:30','Revisão final','Pontos fracos + lei seca, sem conteúdo novo'],
+        ['Terça','09:00–11:30','Revisão final','Pontos fracos + questões erradas, sem conteúdo novo'],
+        ['Quarta','09:00–11:30','Simulado','Último simulado completo em ritmo de prova'],
+        ['Quinta','09:00–11:30','Correção','Caderno de erros + revisão dirigida'],
+        ['Sexta','09:00–11:30','Revisão leve','Lei seca + fórmulas + gramática'],
+        ['Sábado','até 2–3h','Logística','Revisão muito leve, materiais, local e descanso'],
+        ['Domingo','07/03/2027','PROVA','Escrivão pela manhã · Agente à tarde']
+      ];
+      var legal=pick(w,c,[/^Constitucional:/,/^Administrativo:/,/^Legislação Estadual:/,/^Constitucional\/Administrativo\/Estadual:/,/^Revisão dirigida de Constitucional/],'Revisão de Constitucional / Administrativo / Legislação Estadual conforme caderno de erros');
+      var penal=pick(w,c,[/^Penal:/,/^Leis penais especiais/],w.phase==='conteudo'?'Revisão + questões de Direito Penal':'Questões cronometradas + correção de Direito Penal');
+      var proc=pick(w,c,[/^Processual Penal:/,/^Inquérito e provas/],w.phase==='conteudo'?'Revisão + questões de Processo Penal':'Questões cronometradas + correção de Processo Penal');
+      var port=pick(w,c,[/^Português:/],w.phase==='conteudo'?'Revisão do último tópico de Português':'Questões de Português + caderno de erros');
+      var info=pick(w,c,[/^Informática:/],w.phase==='conteudo'?'Revisão do último tópico de Informática':'Questões de Informática + pontos fracos');
+      var rlm=pick(w,c,[/^RLM:/],w.phase==='conteudo'?'Revisão do último tópico de RLM':'Questões de RLM + fórmulas/erros');
+      var estat=pick(w,c,[/^Estatística:/],w.phase==='conteudo'?'Revisão do último tópico de Estatística':'Questões de Estatística + fórmulas/erros');
+      var esp=pick(w,c,[/^Contabilidade/,/^Arquivologia/,/^Matéria específica do cargo:/],c==='agente'?'Contabilidade — revisão/questões conforme pontos fracos':'Arquivologia — revisão/questões conforme pontos fracos');
+      var leg=pick(w,c,[/^Legislação Estadual:/,/^Constitucional\/Administrativo\/Estadual:/,/^Revisão dirigida de Constitucional/],penal);
+      return [
+        ['Segunda','09:00–10:10','Constitucional / Administrativo / Estadual',legal],
+        ['Segunda','10:20–11:10','Língua Portuguesa',port],
+        ['Segunda','11:10–11:30','Revisão','D+7 + caderno de erros'],
+        ['Terça','09:00–10:10','Direito Penal',penal],
+        ['Terça','10:20–11:10','Informática',info],
+        ['Terça','11:10–11:30','Questões','Questões do conteúdo do dia + correção'],
+        ['Quarta','09:00–10:10','Direito Processual Penal',proc],
+        ['Quarta','10:20–11:10','Raciocínio Lógico',rlm],
+        ['Quarta','11:10–11:30','Revisão','D+30 / flashcards'],
+        ['Quinta','09:00–10:10','Penal / Legislação Estadual',leg],
+        ['Quinta','10:20–11:10',c==='agente'?'Contabilidade Geral':'Noções de Arquivologia',esp],
+        ['Quinta','11:10–11:30','Questões','Questões + registro de erros'],
+        ['Sexta','09:00–10:10','Estatística',estat],
+        ['Sexta','10:20–11:10','Português — treino','Questões e reescrita sobre: '+port],
+        ['Sexta','11:10–11:30','Revisão semanal','Conferir pendências e planejar o fim de semana'],
+        ['Sábado','09:00–10:30','Específicos prioritários','Reforço de Informática, RLM e Estatística dos assuntos desta semana'],
+        ['Sábado','10:45–12:15','Noções de Direito','Reforço: '+legal+'; '+penal+'; '+proc],
+        ['Sábado','14:00–15:30',c==='agente'?'Contabilidade Geral':'Noções de Arquivologia','Questões/revisão: '+esp],
+        ['Sábado','15:45–17:15','Questões mistas','Bateria mista + revisões D+7/D+30'],
+        ['Domingo','09:00–12:00','Simulado',w.mock],
+        ['Domingo','15:45–16:45','Discursiva',w.essay]
+      ];
+    }
+    function render(){
+      var D=window.PCPE_DATA;if(!D||!D.weeks)return;
+      var c=getCargo(),sel=document.getElementById('cargoSelect');if(sel)sel.value=c;
+      var wt=document.getElementById('weeklyTemplate');
+      if(wt&&D.weeklyTemplate){
+        var html=D.weeklyTemplate.weekday.map(function(d){return '<div class="template-day"><h4>'+esc(d.day)+'</h4>'+d.blocks.map(function(b){return '<div class="template-slot"><b>'+esc(b[0])+'</b>'+esc(cargoize(b[2],c))+'</div>';}).join('')+'</div>';}).join('');
+        html+='<div class="template-day weekend"><h4>Sábado · ~6h líquidas</h4>'+D.weeklyTemplate.saturday.map(function(b){return '<div class="template-slot"><b>'+esc(b[0])+'</b>'+esc(cargoize(b[2],c))+'</div>';}).join('')+'</div>';
+        html+='<div class="template-day weekend"><h4>Domingo · simulado + discursiva</h4>'+D.weeklyTemplate.sunday.map(function(b){return '<div class="template-slot"><b>'+esc(b[0])+'</b>'+esc(cargoize(b[2],c))+'</div>';}).join('')+'</div>';
+        wt.innerHTML=html;
+      }
+      var wl=document.getElementById('weekList'); if(!wl)return;
+      var today='2026-10-03';
+      try{today=new Date().toISOString().slice(0,10);}catch(e){}
+      wl.innerHTML=D.weeks.map(function(w){
+        var current=today>=w.start&&today<=w.end, open=current||(today<D.meta.startDate&&w.number===1);
+        var rows=plan(w,c).map(function(r){return '<tr><td><strong>'+esc(r[0])+'</strong></td><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td><td>'+esc(r[3])+'</td></tr>';}).join('');
+        var items=visibleItems(w,c).map(function(x){return '<li>'+esc(cargoize(x,c))+'</li>';}).join('');
+        return '<details class="week-card '+(current?'current':'')+'" data-phase="'+esc(w.phase)+'" data-week="'+w.number+'" '+(open?'open':'')+'><summary><div class="week-no">SEM '+String(w.number).padStart(2,'0')+'</div><div class="week-summary"><h3>'+esc(w.title)+'</h3><p>'+fmt(w.start)+' → '+fmt(w.end)+' · abra para ver os assuntos por dia</p></div><div class="week-chevron">⌄</div></summary><div class="week-body"><div class="week-daily-plan"><div class="daily-plan-head"><div><span class="eyebrow">ASSUNTOS POR DIA</span><h4>O que estudar em cada bloco</h4></div><span class="daily-plan-hint">matéria + assunto + horário</span></div><div class="daily-table-wrap"><table class="daily-plan-table"><thead><tr><th>Dia</th><th>Horário</th><th>Matéria</th><th>Assunto</th></tr></thead><tbody>'+rows+'</tbody></table></div></div><div class="week-focus"><span class="eyebrow">FOCO DA SEMANA</span><ul>'+items+'</ul></div><div class="sunday-box"><h4>Domingo</h4><p><strong>Simulado:</strong> '+esc(w.mock)+'</p><p><strong>Discursiva:</strong> '+esc(w.essay)+'</p></div></div></details>';
+      }).join('');
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',render); else render();
+    window.__renderPcpeScheduleFallback=render;
+  })();
+  </script>
+<!-- SCHEDULE_BOOTSTRAP_END -->
   <script src="app.js?v=20261003-2"></script>
 </body>
 </html>
