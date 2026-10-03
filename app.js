@@ -382,10 +382,10 @@
   $('#timerFinish').addEventListener('click',()=>{
     const sec=effectiveElapsed(), minutes=Math.max(1,Math.round(sec/60));
     const sid=$('#timerSubject').value; if(!sid){toast('Selecione a matéria.');return;}
-    state.sessions.unshift({id:cryptoId(),date:todayISO(),subject:sid,topic:$('#timerTopic').value.trim(),minutes,pages:+$('#timerPages').value||0,questions:+$('#timerQ').value||0,correct:+$('#timerCorrect').value||0,wrong:+$('#timerWrong').value||0,source:'timer'});
+    state.sessions.unshift({id:cryptoId(),date:todayISO(),subject:sid,topic:$('#timerTopic').value,studyType:$('#timerStudyType')?.value||'PDF',minutes,pages:+$('#timerPages').value||0,questions:+$('#timerQ').value||0,correct:+$('#timerCorrect').value||0,wrong:+$('#timerWrong').value||0,source:'timer'});
     state.timer={elapsed:0,running:false,startedAt:null}; saveState(); updateTimerUI(); closeModal('timerModal'); renderDashboard(); renderHistory(); clearTimerForm(); toast('Sessão salva no histórico.');
   });
-  function clearTimerForm(){ ['#timerTopic','#timerPages','#timerQ','#timerCorrect','#timerWrong'].forEach((s,i)=>$(s).value=i===0?'':'0'); }
+  function clearTimerForm(){ $('#timerTopic').value=''; $('#timerStudyType').value='PDF'; ['#timerPages','#timerQ','#timerCorrect','#timerWrong'].forEach(s=>$(s).value='0'); }
 
   // Mocks
   $('#addMockBtn').addEventListener('click',()=>{ $('#mockDate').value=todayISO(); $('#mockCargo').value=state.cargo; const cw=currentWeek(); $('#mockEssayTopic').value=cw?.essay||''; openModal('mockModal'); });
@@ -414,7 +414,7 @@
   });
   function renderHistory(){
     const ss=state.sessions;
-    $('#historyTable').innerHTML=ss.length?`<table class="data-table"><thead><tr><th>Data</th><th>Matéria</th><th>Assunto</th><th>Tempo</th><th>Páginas</th><th>Questões</th><th>Acertos/Erros</th><th></th></tr></thead><tbody>${ss.map(s=>`<tr><td>${fmtDate(s.date)}</td><td><strong>${esc(subjectById(s.subject)?.name||s.subject)}</strong></td><td>${esc(s.topic||'—')}</td><td>${s.minutes} min</td><td>${s.pages||0}</td><td>${s.questions||0}</td><td>${s.correct||0}/${s.wrong||0}</td><td class="table-actions"><button data-del-session="${s.id}">Excluir</button></td></tr>`).join('')}</tbody></table>`:'<div class="empty-state">Nenhuma sessão registrada ainda.</div>';
+    $('#historyTable').innerHTML=ss.length?`<table class="data-table"><thead><tr><th>Data</th><th>Matéria</th><th>Assunto</th><th>Tipo</th><th>Tempo</th><th>Páginas</th><th>Questões</th><th>Acertos/Erros</th><th></th></tr></thead><tbody>${ss.map(s=>`<tr><td>${fmtDate(s.date)}</td><td><strong>${esc(subjectById(s.subject)?.name||s.subject)}</strong></td><td>${esc(s.topic||'—')}</td><td>${esc(s.studyType||'—')}</td><td>${s.minutes} min</td><td>${s.pages||0}</td><td>${s.questions||0}</td><td>${s.correct||0}/${s.wrong||0}</td><td class="table-actions"><button data-del-session="${s.id}">Excluir</button></td></tr>`).join('')}</tbody></table>`:'<div class="empty-state">Nenhuma sessão registrada ainda.</div>';
     $$('[data-del-session]').forEach(b=>b.addEventListener('click',()=>{if(confirm('Excluir esta sessão?')){state.sessions=state.sessions.filter(s=>s.id!==b.dataset.delSession);saveState();renderHistory();renderDashboard();}}));
   }
 
