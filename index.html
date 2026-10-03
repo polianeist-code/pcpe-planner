@@ -86,6 +86,27 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;
 .static-topic-check:checked+.static-topic-text{text-decoration:line-through;color:#98a2b3!important}
 @media(max-width:760px){.static-subject-card>summary{align-items:flex-start;flex-direction:column}.static-subject-side{justify-content:flex-start}.syllabus-overall-top{align-items:flex-start;flex-direction:column}}
 
+
+/* Alinhamento das caixas do checklist do edital */
+.static-topic-row,
+.static-topic-row.depth-1,
+.static-topic-row.depth-2,
+.static-topic-row.depth-3{
+  padding-left:24px!important;
+}
+.static-topic-row .static-topic-check{
+  margin-left:0!important;
+}
+.static-topic-row.depth-1 .static-topic-text{
+  padding-left:24px;
+}
+.static-topic-row.depth-2 .static-topic-text{
+  padding-left:44px;
+}
+.static-topic-row.depth-3 .static-topic-text{
+  padding-left:64px;
+}
+
 </style>
 </head>
 <body>
